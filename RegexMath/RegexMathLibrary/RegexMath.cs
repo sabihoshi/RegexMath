@@ -4,10 +4,10 @@ namespace RegexMath
 {
     public static class RegexMath
     {
-        private static Parenthesis Parenthesis { get; } = new Parenthesis();
-        private static Exponents Exponents { get; } = new Exponents();
-        private static MultiplicationDivision MultiplicationDivision { get; } = new MultiplicationDivision();
-        private static AdditionSubtraction AdditionSubtraction { get; } = new AdditionSubtraction();
+        private static Parenthesis P { get; } = new Parenthesis();
+        private static Exponents E { get; } = new Exponents();
+        private static MultiplicationDivision MMD { get; } = new MultiplicationDivision();
+        private static AdditionSubtraction AS { get; } = new AdditionSubtraction();
 
         public static double Evaluate(string input)
         {
@@ -23,16 +23,16 @@ namespace RegexMath
         {
             var output = input;
 
-            if (Parenthesis.TryEvaluate(ref output))
+            if (P.TryEvaluate(ref output))
                 output = Calculate(output);
 
-            if (Exponents.TryEvaluate(ref output))
+            if (E.TryEvaluate(ref output))
                 output = Calculate(output);
 
-            if (MultiplicationDivision.TryEvaluate(ref output))
+            if (MMD.TryEvaluate(ref output))
                 output = Calculate(output);
 
-            if (AdditionSubtraction.TryEvaluate(ref output))
+            if (AS.TryEvaluate(ref output))
                 output = Calculate(output);
 
             return output;

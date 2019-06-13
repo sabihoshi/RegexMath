@@ -2,7 +2,7 @@
 
 namespace RegexMath.Operations
 {
-    public sealed class MultiplicationDivision : Calculation
+    public sealed class ModuloMultiplicationDivision : Calculation
     {
         // language=REGEXP
         protected override string Pattern { get; } =
@@ -14,7 +14,7 @@ namespace RegexMath.Operations
                   (?<exponent>e[+-]?[0-9]+)?) # Exponent
               (?(bracket)(?<-bracket>[)]))))
 
-              (?<operation>/|\*)? # Optional because multiplication can have no symbol
+              (?<operation>/|\*|%)? # Optional because multiplication can have no symbol
 
               (?<number>
               (?<bracket>[(])?
@@ -26,13 +26,15 @@ namespace RegexMath.Operations
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {
-            if (operation == "/")
-                return Divide;
-            return Multiply;
+            switch (operation) {
+                case "/": return Divide;
+                case "%": return Modulo;
+                default:  return Multiply;
+            }
         }
 
+        private static double Modulo(double x, double y) => x % y;
         private static double Divide(double x, double y) => x / y;
-
         private static double Multiply(double x, double y) => x * y;
     }
 }
