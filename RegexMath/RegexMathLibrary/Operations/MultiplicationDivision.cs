@@ -2,7 +2,7 @@
 
 namespace RegexMath.Operations
 {
-    public sealed class ModuloMultiplicationDivision : Calculation
+    public sealed class MultiplicationDivision : Calculation
     {
         // language=REGEXP
         protected override string Pattern { get; } =

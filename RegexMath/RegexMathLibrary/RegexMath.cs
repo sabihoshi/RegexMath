@@ -6,7 +6,7 @@ namespace RegexMath
     {
         private static Parenthesis P { get; } = new Parenthesis();
         private static Exponents E { get; } = new Exponents();
-        private static MultiplicationDivision MMD { get; } = new MultiplicationDivision();
+        private static MultiplicationDivision MD { get; } = new MultiplicationDivision();
         private static AdditionSubtraction AS { get; } = new AdditionSubtraction();
 
         public static double Evaluate(string input)
@@ -23,16 +23,16 @@ namespace RegexMath
         {
             var output = input;
 
-            if (P.TryEvaluate(ref output))
-                output = Calculate(output);
-
             if (E.TryEvaluate(ref output))
                 output = Calculate(output);
 
-            if (MMD.TryEvaluate(ref output))
+            if (MD.TryEvaluate(ref output))
                 output = Calculate(output);
 
             if (AS.TryEvaluate(ref output))
+                output = Calculate(output);
+
+            if (P.TryEvaluate(ref output))
                 output = Calculate(output);
 
             return output;
