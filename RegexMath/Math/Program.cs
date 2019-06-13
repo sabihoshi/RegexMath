@@ -1,7 +1,6 @@
 ﻿using System;
-using RegexMathLibrary;
 
-namespace Math
+namespace RegexMath
 {
     class Program
     {

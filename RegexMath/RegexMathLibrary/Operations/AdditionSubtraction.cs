@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
-namespace RegexMathLibrary.Operations
+namespace RegexMath.Operations
 {
     public sealed class AdditionSubtraction : Calculation
     {
@@ -15,9 +14,9 @@ namespace RegexMathLibrary.Operations
                   (?<decimal>(?(int)(?<-int>([.]?[0-9]*)?)|[.][0-9]+)) # Decimal
                   (?<exponent>e[+-]?[0-9]+)?) # Exponent
               (?(bracket)(?<-bracket>[)])))) # Have bracket match only if there is a pair
-              
+
               (?<operation>-|\+)
-              
+
               (?<number>
               (?<bracket>[(])?
               (?<x>
@@ -35,7 +34,7 @@ namespace RegexMathLibrary.Operations
         }
 
         private static double Add(double x, double y) => x + y;
+
         private static double Subtract(double x, double y) => x - y;
-        
     }
 }

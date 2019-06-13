@@ -4,7 +4,7 @@ using System.Text;
 using Shouldly;
 using Xunit;
 
-namespace RegexMathLibrary.Tests
+namespace RegexMath.Tests
 {
     public class RegexMathTests
     {

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Text.RegularExpressions;
-
-namespace RegexMathLibrary.Operations
+﻿namespace RegexMath.Operations
 {
     public sealed class Parenthesis : Calculation
     {
         /* language=REGEXP */
-        protected override string Pattern { get; } =  
+
+        protected override string Pattern { get; } =
             @"(?<bracket>[(])
               (?<x>[+-]?
                   (?<int>(?(bracket)[+-]?)[0-9,]+)? # Integer

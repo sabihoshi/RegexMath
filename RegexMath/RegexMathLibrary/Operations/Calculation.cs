@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace RegexMathLibrary.Operations
+namespace RegexMath.Operations
 {
     public abstract class Calculation
     {
@@ -19,10 +19,6 @@ namespace RegexMathLibrary.Operations
 
         protected abstract string Pattern { get; }
 
-        protected virtual Func<double, double, double> GetOperation(string operation = null)
-        {
-            throw new NotImplementedException();
-        }
         protected Regex Regex { get; }
 
         public virtual bool TryEvaluate(ref string input)
@@ -38,6 +34,11 @@ namespace RegexMathLibrary.Operations
                 return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
             }, 1);
             return true;
+        }
+
+        protected virtual Func<double, double, double> GetOperation(string operation = null)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RegexMathLibrary.Operations
+namespace RegexMath.Operations
 {
     public sealed class MultiplicationDivision : Calculation
     {

@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RegexMathLibrary.Operations;
+﻿using RegexMath.Operations;
 
-namespace RegexMathLibrary
+namespace RegexMath
 {
     public static class RegexMath
     {
-        public static Parenthesis Parenthesis { get; } = new Parenthesis();
-        public static Exponents Exponents { get; } = new Exponents();
-        public static MultiplicationDivision MultiplicationDivision { get; } = new MultiplicationDivision();
-        public static AdditionSubtraction AdditionSubtraction { get; } = new AdditionSubtraction();
-        public static bool TryEvaluate(ref string input, out double result)
-        {
-            return double.TryParse(Calculate(input), out result);
-        }
+        private static Parenthesis Parenthesis { get; } = new Parenthesis();
+        private static Exponents Exponents { get; } = new Exponents();
+        private static MultiplicationDivision MultiplicationDivision { get; } = new MultiplicationDivision();
+        private static AdditionSubtraction AdditionSubtraction { get; } = new AdditionSubtraction();
 
         public static double Evaluate(string input)
         {
             return double.Parse(Calculate(input));
+        }
+
+        public static bool TryEvaluate(ref string input, out double result)
+        {
+            return double.TryParse(Calculate(input), out result);
         }
 
         private static string Calculate(string input)

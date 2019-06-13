@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RegexMathLibrary\RegexMathLibrary.csproj" />
+    <ProjectReference Include="..\RegexMathLibrary\RegexMath.csproj" />
   </ItemGroup>
 
   <ItemGroup>
