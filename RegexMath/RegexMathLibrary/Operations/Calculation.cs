@@ -1,47 +1,43 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace RegexMathLibrary.Operations
 {
-    public abstract class Calculation : IOperation
+    public abstract class Calculation
     {
         protected Calculation()
         {
-            Options = RegexOptions.Compiled
-                    | RegexOptions.IgnorePatternWhitespace
-                    | RegexOptions.IgnoreCase
-                    | RegexOptions.ExplicitCapture;
             Regex = new Regex(Pattern, Options);
         }
 
-        protected abstract string Operator { get; set; }
+        protected virtual RegexOptions Options => RegexOptions.Compiled
+                                                | RegexOptions.IgnorePatternWhitespace
+                                                | RegexOptions.IgnoreCase
+                                                | RegexOptions.ExplicitCapture;
 
-        protected RegexOptions Options { get; }
+        protected abstract string Pattern { get; }
 
-        // language=REGEXP
-        public virtual string Pattern => @"(?<expression>(?<number>(?<bracket>[(])?(?<x>[+-]?(?<int>[0-9,]+)?[.]?(?<decimal>(?(int)(?<-int>[0-9]*)|([0-9]+))([+-]e[0-9]+)?))(?(bracket)(?<-bracket>[)])))" + Operator + @"){2,}";
-
-        public Regex Regex { get; protected set; }
+        protected virtual Func<double, double, double> GetOperation(string operation = null)
+        {
+            throw new NotImplementedException();
+        }
+        protected Regex Regex { get; }
 
         public virtual bool TryEvaluate(ref string input)
         {
             if (!Regex.IsMatch(input)) return false;
             input = Regex.Replace(input, match =>
             {
+                var operation = GetOperation(match.Groups["operation"].Value);
                 var numbers = match.Groups["x"].Captures
-                                   .Select(y => double.Parse(y.Value));
-                return Calculate(numbers).ToString(CultureInfo.CurrentCulture);
+                                   .Select(x => x.Value)
+                                   .Where(x => double.TryParse(x, out _))
+                                   .Select(x => double.Parse(x));
+                return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
             }, 1);
             return true;
         }
-
-        protected double Calculate(IEnumerable<double> numbers)
-        {
-            return numbers.Aggregate(Operation);
-        }
-
-        protected abstract double Operation(double x, double y);
     }
 }
