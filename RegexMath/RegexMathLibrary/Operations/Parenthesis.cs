@@ -5,12 +5,14 @@
         /* language=REGEXP */
 
         protected override string Pattern { get; } =
-            @"(?<bracket>[(])
+            @"(?<=^|[(^*/+-]) # Allow start or no 
+              (?<bracket>[(])
               (?<x>[+-]?
                   (?<int>(?(bracket)[+-]?)[0-9,]+)? # Integer
                   (?<decimal>(?(int)(?<-int>([.]?[0-9]*)?)|[.][0-9]+)) # Decimal
                   (?<exponent>e[+-]?[0-9]+)?) # Exponent
-              (?(bracket)(?<-bracket>[)]))";
+              (?(bracket)(?<-bracket>[)]))
+              (?=$|[)^*/+-])";
 
         public override bool TryEvaluate(ref string input)
         {

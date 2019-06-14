@@ -23,6 +23,9 @@ namespace RegexMath
         {
             var output = input;
 
+            if (P.TryEvaluate(ref output))
+                output = Calculate(output);
+
             if (E.TryEvaluate(ref output))
                 output = Calculate(output);
 
@@ -30,9 +33,6 @@ namespace RegexMath
                 output = Calculate(output);
 
             if (AS.TryEvaluate(ref output))
-                output = Calculate(output);
-
-            if (P.TryEvaluate(ref output))
                 output = Calculate(output);
 
             return output;

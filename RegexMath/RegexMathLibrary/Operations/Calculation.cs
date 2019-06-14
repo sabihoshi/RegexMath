@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -24,7 +25,13 @@ namespace RegexMath.Operations
         public virtual bool TryEvaluate(ref string input)
         {
             if (!Regex.IsMatch(input)) return false;
-            input = Regex.Replace(input, match =>
+            input = Evaluate(input);
+            return true;
+        }
+
+        public string Evaluate(string input)
+        {
+            return Regex.Replace(input, match =>
             {
                 var operation = GetOperation(match.Groups["operation"].Value);
                 var numbers = match.Groups["x"].Captures
@@ -33,7 +40,6 @@ namespace RegexMath.Operations
                                    .Select(x => double.Parse(x));
                 return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
             }, 1);
-            return true;
         }
 
         protected virtual Func<double, double, double> GetOperation(string operation = null)
