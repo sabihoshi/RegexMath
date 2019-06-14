@@ -4,20 +4,10 @@ namespace RegexMath
 {
     public static class RegexMath
     {
-        private static Parenthesis P { get; } = new Parenthesis();
+        private static AdditionSubtraction AS { get; } = new AdditionSubtraction();
         private static Exponents E { get; } = new Exponents();
         private static MultiplicationDivision MD { get; } = new MultiplicationDivision();
-        private static AdditionSubtraction AS { get; } = new AdditionSubtraction();
-
-        public static double Evaluate(string input)
-        {
-            return double.Parse(Calculate(input));
-        }
-
-        public static bool TryEvaluate(ref string input, out double result)
-        {
-            return double.TryParse(Calculate(input), out result);
-        }
+        private static Parenthesis P { get; } = new Parenthesis();
 
         private static string Calculate(string input)
         {
@@ -41,6 +31,16 @@ namespace RegexMath
         private static void Calculate(ref string input)
         {
             input = Calculate(input);
+        }
+
+        public static double Evaluate(string input)
+        {
+            return double.Parse(Calculate(input));
+        }
+
+        public static bool TryEvaluate(ref string input, out double result)
+        {
+            return double.TryParse(Calculate(input), out result);
         }
     }
 }
