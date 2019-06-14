@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Shouldly;
 using Xunit;
 
@@ -55,13 +53,6 @@ namespace RegexMath.Tests
             RegexMath.Evaluate(input).ShouldBeInRange(low, high);
         }
 
-        [Fact]
-        public void Factorial_ShouldCalculate()
-        {
-            var input = "5!";
-            RegexMath.Evaluate(input).ShouldBe(120);
-        }
-
         [Theory]
         [InlineData("5+(-5(0.431e4*(5)(4)))*3.430e2(.509194e-5)-40.05245", -787.80921602)]
         [InlineData("10*5(sqrt(4))", 100)]
@@ -69,6 +60,7 @@ namespace RegexMath.Tests
         {
             RegexMath.Evaluate(input).ShouldBe(expected);
         }
+
         private void RoughEqual(double expected, out double low, out double high,
                                 double tolerance = 0.00000000000001)
         {
@@ -76,5 +68,11 @@ namespace RegexMath.Tests
             high = expected + tolerance;
         }
 
+        [Fact]
+        public void Factorial_ShouldCalculate()
+        {
+            var input = "5!";
+            RegexMath.Evaluate(input).ShouldBe(120);
+        }
     }
 }

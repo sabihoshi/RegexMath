@@ -24,17 +24,15 @@ namespace RegexMath.Operations
                   (?<exponent>e[+-]?[0-9]+)?)
               (?(bracket)(?<-bracket>[)]))) # Exponent";
 
+        
         protected override Func<double, double, double> GetOperation(string operation = null)
         {
-            switch (operation) {
-                case "/": return Divide;
-                case "%": return Modulo;
-                default:  return Multiply;
+            switch (operation)
+            {
+                case "/": return (x, y) => x / y;
+                case "%": return (x, y) => x % y;
+                default:  return (x, y) => x * y;
             }
         }
-
-        private static double Modulo(double x, double y) => x % y;
-        private static double Divide(double x, double y) => x / y;
-        private static double Multiply(double x, double y) => x * y;
     }
 }

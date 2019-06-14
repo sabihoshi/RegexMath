@@ -1,4 +1,6 @@
-﻿namespace RegexMath.Operations
+﻿using System.Text.RegularExpressions;
+
+namespace RegexMath.Operations
 {
     public sealed class Parenthesis : Calculation
     {
@@ -14,9 +16,9 @@
               (?(bracket)(?<-bracket>[)]))
               (?=$|[)^*/+-])";
 
-        public override string Evaluate(string input)
+        protected override string Replace(Match match)
         {
-            return Regex.Replace(input, match => match.Groups["x"].Value);
+            return match.Groups["x"].Value;
         }
     }
 }

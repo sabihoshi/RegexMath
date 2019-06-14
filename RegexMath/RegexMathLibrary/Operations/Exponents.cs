@@ -8,10 +8,10 @@ namespace RegexMath.Operations
     public sealed class Exponents : Calculation
     {
         protected override RegexOptions Options { get; } = RegexOptions.Compiled
-                                                | RegexOptions.IgnorePatternWhitespace
-                                                | RegexOptions.IgnoreCase
-                                                | RegexOptions.ExplicitCapture
-                                                | RegexOptions.RightToLeft;
+                                                         | RegexOptions.IgnorePatternWhitespace
+                                                         | RegexOptions.IgnoreCase
+                                                         | RegexOptions.ExplicitCapture
+                                                         | RegexOptions.RightToLeft;
 
         // language=REGEXP
         protected override string Pattern { get; } =
@@ -33,18 +33,15 @@ namespace RegexMath.Operations
                   (?<exponent>e[+-]?[0-9]+)?) # Exponent
               (?<bracket>[)])?))";
 
-        public override string Evaluate(string input)
+        protected override string Replace(Match match)
         {
-            return Regex.Replace(input, match =>
-            {
-                var operation = GetOperation();
-                var numbers = match.Groups["x"].Captures
-                                   .Select(x => x.Value)
-                                   .Where(x => double.TryParse(x, out _))
-                                   .Select(double.Parse)
-                                   .Reverse();
-                return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
-            }, 1);
+            var operation = GetOperation();
+            var numbers = match.Groups["x"].Captures
+                               .Select(x => x.Value)
+                               .Where(x => double.TryParse(x, out _))
+                               .Select(double.Parse)
+                               .Reverse();
+            return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
         }
 
         protected override Func<double, double, double> GetOperation(string operation = null)

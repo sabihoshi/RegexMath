@@ -12,35 +12,33 @@ namespace RegexMath.Operations
             Regex = new Regex(Pattern, Options);
         }
 
-        protected virtual RegexOptions Options => RegexOptions.Compiled
-                                                | RegexOptions.IgnorePatternWhitespace
-                                                | RegexOptions.IgnoreCase
-                                                | RegexOptions.ExplicitCapture;
-
         protected abstract string Pattern { get; }
 
-        protected Regex Regex { get; }
+        private Regex Regex { get; }
 
-        public virtual string Evaluate(string input)
-        {
-            return Regex.Replace(input, match =>
-            {
-                var operation = GetOperation(match.Groups["operation"].Value);
-                var numbers = match.Groups["x"].Captures
-                                   .Select(x => x.Value)
-                                   .Where(x => double.TryParse(x, out _))
-                                   .Select(x => double.Parse(x));
-                return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
-            }, 1);
-        }
+        protected virtual RegexOptions Options { get; } = RegexOptions.Compiled
+                                                        | RegexOptions.IgnorePatternWhitespace
+                                                        | RegexOptions.IgnoreCase
+                                                        | RegexOptions.ExplicitCapture;
 
         public bool TryEvaluate(string input, out string result)
         {
-            result = input;
-            if (!Regex.IsMatch(input))
-                return false;
-            result = Evaluate(input);
-            return true;
+            result = Regex.Replace(input, Replace);
+            return Regex.IsMatch(input);
+        }
+
+        public string Evaluate(string input)
+        {
+            return Regex.Replace(input, Replace);
+        }
+
+        protected virtual string Replace(Match match)
+        {
+            var operation = GetOperation(match.Groups["operation"].Value);
+            var numbers = match.Groups["x"].Captures
+                               .Where(x => double.TryParse(x.Value, out _))
+                               .Select(x => double.Parse(x.Value));
+            return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
         }
 
         protected virtual Func<double, double, double> GetOperation(string operation = null)

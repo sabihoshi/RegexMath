@@ -26,21 +26,12 @@ namespace RegexMath.Operations
               (?(bracket)(?<-bracket>[)]))) # Have bracket match only if there is a pair
               (?=$|[)+-]) # Allow only matches that are at the end or no higher precedence";
 
-        private static double Add(double x, double y)
-        {
-            return x + y;
-        }
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {
             if (operation == "+")
-                return Add;
-            return Subtract;
-        }
-
-        private static double Subtract(double x, double y)
-        {
-            return x - y;
+                return (x, y) => x + y;
+            return (x, y) => x - y;
         }
     }
 }
