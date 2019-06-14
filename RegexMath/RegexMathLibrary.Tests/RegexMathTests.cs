@@ -23,8 +23,7 @@ namespace RegexMath.Tests
         [InlineData("9+3+(491)+597+28+(727+7)", 1862)]
         public void Add_ShouldCalculate(string input, double expected)
         {
-            RoughEqual(expected, out var low, out var high);
-            RegexMath.Evaluate(input).ShouldBeInRange(low, high);
+            RegexMath.Evaluate(input).ShouldBe(expected);
         }
 
         [Theory]
@@ -33,8 +32,7 @@ namespace RegexMath.Tests
         [InlineData("9-3-(491)-597-28-(727-7)", -1830)]
         public void Subtract_ShouldCalculate(string input, double expected)
         {
-            RoughEqual(expected, out var low, out var high);
-            RegexMath.Evaluate(input).ShouldBeInRange(low, high);
+            RegexMath.Evaluate(input).ShouldBe(expected);
         }
 
         [Theory]
@@ -43,8 +41,7 @@ namespace RegexMath.Tests
         [InlineData("2^3^2", 512)]
         public void Exponent_ShouldCalculate(string input, double expected)
         {
-            RoughEqual(expected, out var low, out var high);
-            RegexMath.Evaluate(input).ShouldBeInRange(low, high);
+            RegexMath.Evaluate(input).ShouldBe(expected);
         }
 
         [Theory]
@@ -65,11 +62,12 @@ namespace RegexMath.Tests
             RegexMath.Evaluate(input).ShouldBe(120);
         }
 
-        [Fact]
-        public void Complicated_ShouldCalculate()
+        [Theory]
+        [InlineData("5+(-5(0.431e4*(5)(4)))*3.430e2(.509194e-5)-40.05245", -787.80921602)]
+        [InlineData("10*5(sqrt(4))", 100)]
+        public void Complicated_ShouldCalculate(string input, double expected)
         {
-            var input = "10*5(sqrt(4))";
-            RegexMath.Evaluate(input).ShouldBe(100);
+            RegexMath.Evaluate(input).ShouldBe(expected);
         }
         private void RoughEqual(double expected, out double low, out double high,
                                 double tolerance = 0.00000000000001)
