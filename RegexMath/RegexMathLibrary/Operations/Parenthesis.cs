@@ -14,11 +14,9 @@
               (?(bracket)(?<-bracket>[)]))
               (?=$|[)^*/+-])";
 
-        public override bool TryEvaluate(ref string input)
+        public override string Evaluate(string input)
         {
-            if (!Regex.IsMatch(input)) return false;
-            input = Regex.Replace(input, match => match.Groups["x"].Value);
-            return true;
+            return Regex.Replace(input, match => match.Groups["x"].Value);
         }
     }
 }

@@ -33,10 +33,9 @@ namespace RegexMath.Operations
                   (?<exponent>e[+-]?[0-9]+)?) # Exponent
               (?<bracket>[)])?))";
 
-        public override bool TryEvaluate(ref string input)
+        public override string Evaluate(string input)
         {
-            if (!Regex.IsMatch(input)) return false;
-            input = Regex.Replace(input, match =>
+            return Regex.Replace(input, match =>
             {
                 var operation = GetOperation();
                 var numbers = match.Groups["x"].Captures
@@ -46,7 +45,6 @@ namespace RegexMath.Operations
                                    .Reverse();
                 return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
             }, 1);
-            return true;
         }
 
         protected override Func<double, double, double> GetOperation(string operation = null)

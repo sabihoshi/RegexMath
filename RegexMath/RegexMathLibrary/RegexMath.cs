@@ -23,19 +23,24 @@ namespace RegexMath
         {
             var output = input;
 
-            if (P.TryEvaluate(ref output))
-                output = Calculate(output);
+            if (P.TryEvaluate(output, out output))
+                Calculate(ref output);
 
-            if (E.TryEvaluate(ref output))
-                output = Calculate(output);
+            if (E.TryEvaluate(output, out output))
+                Calculate(ref output);
 
-            if (MD.TryEvaluate(ref output))
-                output = Calculate(output);
+            if (MD.TryEvaluate(output, out output))
+                Calculate(ref output);
 
-            if (AS.TryEvaluate(ref output))
-                output = Calculate(output);
+            if (AS.TryEvaluate(output, out output))
+                Calculate(ref output);
 
             return output;
+        }
+
+        private static void Calculate(ref string input)
+        {
+            input = Calculate(input);
         }
     }
 }

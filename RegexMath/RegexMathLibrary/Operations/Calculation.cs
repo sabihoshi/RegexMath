@@ -22,14 +22,16 @@ namespace RegexMath.Operations
 
         protected Regex Regex { get; }
 
-        public virtual bool TryEvaluate(ref string input)
+        public bool TryEvaluate(string input, out string result)
         {
-            if (!Regex.IsMatch(input)) return false;
-            input = Evaluate(input);
+            result = input;
+            if (!Regex.IsMatch(input)) 
+                return false;
+            result = Evaluate(input);
             return true;
         }
 
-        public string Evaluate(string input)
+        public virtual string Evaluate(string input)
         {
             return Regex.Replace(input, match =>
             {
