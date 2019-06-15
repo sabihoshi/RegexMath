@@ -6,7 +6,7 @@ namespace RegexMath.Operations
     {
         // language=REGEXP
         protected override string Pattern { get; } =
-                @"(?>(?<number> # Prevent backtracking so two numbers are required
+                @"(?>(?<lhs> # Prevent backtracking so two numbers are required
                   (?<bracket>[(])?
                   (?<x>
                       (?<int>(?(bracket)[+-]?)[0-9,]+)? # Integer
@@ -14,15 +14,18 @@ namespace RegexMath.Operations
                       (?<exponent>e[+-]?[0-9]+)?) # Exponent
                   (?(bracket)(?<-bracket>[)]))))
 
-                  (?<operation>/|\*|%|rem|mod(ulo)?)? # Optional because multiplication can have no symbol
+                  ((?<operation>(?(rhs)(?(operation)\k<operation>|\*?)|(/|\*|%|rem|mod(ulo)?)))?
+                    # Save the operation when there is no right hand side
+                    # If there is a right hand side, check if there is an operation
+                    # Back-reference if there is an operation, otherwise assume it is multiplication
 
-                  (?<number>
+                  (?<rhs>
                   (?<bracket>[(])?
                   (?<x>
                       (?<int>(?(bracket)[+-]?|(?(operation)[+-]?))[0-9,]+)? # Allow positive or negative only if inside a bracket or there is an explicit operation
                       (?<decimal>(?(int)(?<-int>([.]?[0-9]*)?)|[.][0-9]+)) # Decimal
                       (?<exponent>e[+-]?[0-9]+)?)
-                  (?(bracket)(?<-bracket>[)]))) # Exponent";
+                  (?(bracket)(?<-bracket>[)]))))+ # Exponent";
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {

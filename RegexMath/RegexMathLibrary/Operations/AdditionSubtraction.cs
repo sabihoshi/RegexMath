@@ -7,7 +7,7 @@ namespace RegexMath.Operations
         // language=REGEXP
         protected override string Pattern { get; } =
             @"(?<=^|[(+-]) # Allow only matches that are at the end or no higher precedence
-              (?>(?<number> # Prevent backtracking so two numbers are required
+              (?>(?<lhs> # Prevent backtracking so two numbers are required
               (?<bracket>[(])?
               (?<x>
                   (?<int>[+-]?[0-9,]+)? # Integer
@@ -15,15 +15,15 @@ namespace RegexMath.Operations
                   (?<exponent>e[+-]?[0-9]+)?) # Exponent
               (?(bracket)(?<-bracket>[)])))) # Have bracket match only if there is a pair
 
-              (?<operation>-|\+)
+              ((?<operation>(?(rhs)\k<operation>|(-|\+))) # Back-reference operation if there is an existing operand
 
-              (?<number>
+              (?<rhs>
               (?<bracket>[(])?
               (?<x>
                   (?<int>[+-]?[0-9,]+)? # Integer
                   (?<decimal>(?(int)(?<-int>([.]?[0-9]*)?)|[.][0-9]+)) # Decimal
                   (?<exponent>e[+-]?[0-9]+)?) # Exponent
-              (?(bracket)(?<-bracket>[)]))) # Have bracket match only if there is a pair
+              (?(bracket)(?<-bracket>[)]))))+ # Have 1 or more operations
               (?=$|[)+-]) # Allow only matches that are at the end or no higher precedence";
 
 
