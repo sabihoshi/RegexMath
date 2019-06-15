@@ -7,11 +7,11 @@ namespace RegexMath.Operations
         /* language=REGEXP */
 
         protected override string Pattern { get; } =
-            @"(?<=^|[(^*/+-]) # Allow start or no 
+            @"(?<=^|[(^*/+-]) # Allow start or no hidden operators
               (?<bracket>[(])
               (?<x>[+-]?
                   (?<int>(?(bracket)[+-]?)[0-9,]+)? # Integer
-                  (?<decimal>(?(int)(?<-int>([.]?[0-9]*)?)|[.][0-9]+)) # Decimal
+                  (?<decimal>(?(int)(?<-int>([.][0-9]*)?)|[.][0-9]+)) # Decimal
                   (?<exponent>e[+-]?[0-9]+)?) # Exponent
               (?(bracket)(?<-bracket>[)]))
               (?=$|[)^*/+-])";
