@@ -4,32 +4,34 @@ namespace RegexMath.Operations
 {
     public sealed class AdditionSubtraction : Calculation
     {
+        public AdditionSubtraction()
+            : base(Pattern) { }
+
         // language=REGEXP
-        protected override string Pattern { get; } =
-            @"(?<=^|[(+-]) # Allow only matches that are at the start
-                           # or no higher precedence
-              (?>     # Use atomic grouping to
-              (?<lhs> # prevent backtracking so two numbers are required
-              (?<bracket>[(])?
+        private static string Pattern { get; } =
+            @"(?<=^|[(+-])                        # make sure to start at a lower order
+              (?>(?<lhs>                          # use atomic grouping to prevent back-tracking
+              (?<bracket>[(])?                    # save 'bracket' if there is one
+              (?<x>                               # save 'x' as the full number
+                (?<int>(?(bracket)[+-]?)[0-9,]+)? # match integer or commas
+                (?<decimal>(?(int)
+                  (?<-int>([.][0-9]*)?) |         # make decimal optional if there is an 'int'
+                           [.][0-9]+) )           # else make decimal required
+                (?<exponent>e[+-]?[0-9]+)?)
+              (?(bracket)(?<-bracket>[)]))))      # if there is an opening bracket, include a closing one
+
+             ((?<operation>
+                 (?(rhs)\k<operation>|(-|\+)))    # back-reference operation or capture it
+
+              (?<rhs>(?<bracket>[(])?
               (?<x>
-                  (?<int>[+-]?[0-9,]+)?
-                  (?<decimal>(?(int)(?<-int>([.]?[0-9]*)?)|[.][0-9]+)) # Decimal
-                  (?<exponent>e[+-]?[0-9]+)?) 
-              (?(bracket)(?<-bracket>[)])))) # Have bracket match only 
-                                             # if there is a pair
-
-              ((?<operation>(?(rhs)\k<operation>|(-|\+))) # Back-reference operation if there
-                                                          # is an existing right hand side
-
-              (?<rhs>
-              (?<bracket>[(])?
-              (?<x>
-                  (?<int>[+-]?[0-9,]+)? # Integer
-                  (?<decimal>(?(int)(?<-int>([.]?[0-9]*)?)|[.][0-9]+)) # Decimal
-                  (?<exponent>e[+-]?[0-9]+)?) # Exponent
-              (?(bracket)(?<-bracket>[)]))))+ # Have 1 or more operations
-              (?=$|[)+-]) # Allow only matches that are at the end or no higher precedence";
-
+                (?<int>[+-]?[0-9,]+)?
+                (?<decimal>(?(int)
+                  (?<-int>([.][0-9]*)?) |
+                           [.][0-9]+) )
+                (?<exponent>e[+-]?[0-9]+)?)
+              (?(bracket)(?<-bracket>[)]))))+
+              (?=$|[)+-])                         # make sure to end at a lower order";
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {

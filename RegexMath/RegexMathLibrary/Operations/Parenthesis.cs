@@ -4,17 +4,22 @@ namespace RegexMath.Operations
 {
     public sealed class Parenthesis : Calculation
     {
+        public Parenthesis()
+            : base(Pattern) { }
+
         /* language=REGEXP */
 
-        protected override string Pattern { get; } =
-            @"(?<=^|[(^*/+-]) # Allow start or no hidden operators
-              (?<bracket>[(])
-              (?<x>[+-]?
-                  (?<int>(?(bracket)[+-]?)[0-9,]+)? # Integer
-                  (?<decimal>(?(int)(?<-int>([.][0-9]*)?)|[.][0-9]+)) # Decimal
-                  (?<exponent>e[+-]?[0-9]+)?) # Exponent
-              (?(bracket)(?<-bracket>[)]))
-              (?=$|[)^*/+-])";
+        private static string Pattern { get; } =
+            @"((?<=^|[(^*/+-])                    # make sure to start at a lower order
+              (?<bracket>[(])                     # save 'bracket' if there is one
+              (?<x>
+                (?<int>(?(bracket)[+-]?)[0-9,]+)? # match integer or commas
+                (?<decimal>(?(int)
+                  (?<-int>([.][0-9]*)?) |         # make decimal optional if there is an 'int'
+                           [.][0-9]+) )           # else make decimal required
+                (?<exponent>e[+-]?[0-9]+)?)
+              (?(bracket)(?<-bracket>[)]))        # if there is an opening bracket, include a closing one
+              (?=$|[)^*/+-]))                     # make sure to end at a lower order";                               
 
         protected override string Replace(Match match)
         {

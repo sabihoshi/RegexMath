@@ -7,19 +7,21 @@ namespace RegexMath.Operations
 {
     public abstract class Calculation
     {
-        protected Calculation()
+        protected Calculation(string pattern, RegexOptions options = RegexOptions.None)
         {
-            Regex = new Regex(Pattern, Options);
+            options |= RegexOptions.Compiled
+                     | RegexOptions.IgnorePatternWhitespace
+                     | RegexOptions.IgnoreCase
+                     | RegexOptions.ExplicitCapture;
+            Regex = new Regex(pattern, options);
         }
-
-        protected abstract string Pattern { get; }
 
         private Regex Regex { get; }
 
-        protected virtual RegexOptions Options { get; } = RegexOptions.Compiled
-                                                        | RegexOptions.IgnorePatternWhitespace
-                                                        | RegexOptions.IgnoreCase
-                                                        | RegexOptions.ExplicitCapture;
+        public string Evaluate(string input)
+        {
+            return Regex.Replace(input, Replace);
+        }
 
         public bool TryEvaluate(string input, out string result)
         {
@@ -27,9 +29,9 @@ namespace RegexMath.Operations
             return Regex.IsMatch(input);
         }
 
-        public string Evaluate(string input)
+        protected virtual Func<double, double, double> GetOperation(string operation = null)
         {
-            return Regex.Replace(input, Replace);
+            throw new NotImplementedException();
         }
 
         protected virtual string Replace(Match match)
@@ -39,11 +41,6 @@ namespace RegexMath.Operations
                                .Where(x => double.TryParse(x.Value, out _))
                                .Select(x => double.Parse(x.Value));
             return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
-        }
-
-        protected virtual Func<double, double, double> GetOperation(string operation = null)
-        {
-            throw new NotImplementedException();
         }
     }
 }
