@@ -36,7 +36,7 @@ namespace RegexMath.Operations
         protected override string Replace(Match match)
         {
             var operation = GetOperation();
-            var numbers = match.Groups["x"].Captures
+            var numbers = match.Groups["x"].Captures.Cast<Capture>()
                                .Select(x => x.Value)
                                .Where(x => double.TryParse(x, out _))
                                .Select(double.Parse)

@@ -35,7 +35,7 @@ namespace RegexMath.Operations
         protected virtual string Replace(Match match)
         {
             var operation = GetOperation(match.Groups["operation"].Value);
-            var numbers = match.Groups["x"].Captures
+            var numbers = match.Groups["x"].Captures.Cast<Capture>()
                                .Where(x => double.TryParse(x.Value, out _))
                                .Select(x => double.Parse(x.Value));
             return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
