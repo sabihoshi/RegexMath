@@ -23,7 +23,7 @@ namespace RegexMath.Operations
 
         public bool TryEvaluate(string input, out string result)
         {
-            result = Regex.Replace(input, Replace);
+            result = Evaluate(input);
             return Regex.IsMatch(input);
         }
 

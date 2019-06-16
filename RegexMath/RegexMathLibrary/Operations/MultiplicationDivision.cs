@@ -6,29 +6,36 @@ namespace RegexMath.Operations
     {
         // language=REGEXP
         protected override string Pattern { get; } =
-                @"(?>(?<lhs> # Prevent backtracking so two numbers are required
-                  (?<bracket>[(])?
-                  (?<x>
-                      (?<int>(?(bracket)[+-]?)[0-9,]+)? # Integer
-                      (?<decimal>(?(int)(?<-int>([.]?[0-9]*)?)|[.][0-9]+)) #Decimal
-                      (?<exponent>e[+-]?[0-9]+)?) # Exponent
-                  (?(bracket)(?<-bracket>[)]))))
+                @"(?>                                 # Prevent backtracking so two numbers are required
+                  (?<lhs>(?<bracket>[(])?             # save 'bracket' if there is one
 
-                  ((?<operation>(?(rhs)(?(operation)\k<operation>|\*?)|(/|\*|%|rem|mod(ulo)?)))?
-                    # Save the operation when there is no right hand side
-                    # If there is a right hand side, check if there is an operation
-                    # Back-reference if there is an operation, otherwise assume it is multiplication
+                  (?<x>                               # save 'x' as the full number
 
-                  (?<rhs>
-                  (?<bracket>[(])?
+                    (?<int>(?(bracket)[+-]?)[0-9,]+)? # match integer or commas
+                     
+                    (?<decimal>(?(int)                   
+                      (?<-int>([.][0-9]*)?) |         # make decimal optional if there is an 'int'
+                               [.][0-9]+) )           # else make decimal required
+                    
+                    (?<exponent>(e[+-]?[0-9]+)?)) 
+
+                  (?(bracket)(?<-bracket>[)]))))      # if there is an opening bracket, include a closing one
+
+                 ((?<operation>(?(rhs)
+                    (?(operation)\k<operation>|\*?) |                                     
+                    (/|\*|%|rem|mod(ulo)?)))?
+                    
+                  (?<rhs>(?<bracket>[(])?
                   (?<x>
-                      (?<int>(?(bracket)[+-]?|(?(operation)[+-]?))[0-9,]+)? # Allow positive or negative only if inside a bracket or there is an explicit operation
+
+                      (?<int>(?(bracket)[+-]?|(?(operation)[+-]?)) # allow positive or negative if inside a bracket or there is an operation
+                        [0-9,]+)? 
                       (?<decimal>(?(int)(?<-int>([.]?[0-9]*)?)|[.][0-9]+)) # Decimal
                       (?<exponent>e[+-]?[0-9]+)?)
                   (?(bracket)(?<-bracket>[)]))))+ # Exponent";
 
         protected override Func<double, double, double> GetOperation(string operation = null)
-        {
+        {  
             switch (operation)
             {
                 case "/": return (x, y) => x / y;
