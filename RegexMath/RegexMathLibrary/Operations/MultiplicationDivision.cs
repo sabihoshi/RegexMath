@@ -21,7 +21,7 @@ namespace RegexMath.Operations
 
              ((?<operation>(?(rhs)
                 (?(operation)\k<operation>|\*?) | # back-reference operation, otherwise multiplication
-                (/|\*|%|
+                ([*/%] |
                  rem(ainder)?|mod(ul(o|us))?)))?  # else capture the operation
 
               (?<rhs>(?<bracket>[(])?

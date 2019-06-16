@@ -21,7 +21,7 @@ namespace RegexMath.Operations
               (?(bracket)(?<-bracket>[)]))))      # if there is an opening bracket, include a closing one
 
              ((?<operation>
-                 (?(rhs)\k<operation>|(-|\+)))    # back-reference operation or capture it
+                (?(rhs)\k<operation>|[+-]))    # back-reference operation or capture it
 
               (?<rhs>(?<bracket>[(])?
               (?<x>
