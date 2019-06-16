@@ -19,16 +19,22 @@ namespace RegexMath.Operations
                 (?<exponent>e[+-]?[0-9]+)?)
               (?(bracket)(?<-bracket>[)]))))      # if there is an opening bracket, include a closing one
 
-             ((?<operation>(?(rhs)
-                (?(operation)\k<operation>|\*?) | # back-reference operation, otherwise multiplication
-                ([*/%] |
-                 rem(ainder)?|mod(ul(o|us))?)))?  # else capture the operation
+             ((?(operation)
+                (?(multiplication)[*]? |          # if operation is multiplication, have it be optional
+                  \k<operation>) |                # back-reference operation
+                (?<operation>                     # save operation if there is none
+                  ([/%]            |
+                   rem(ain(der)?)? |
+                   mod(ul(o|us))?) |
+                  (?<multiplication>[*]?)))
 
               (?<rhs>(?<bracket>[(])?
               (?<x>
-                (?<int>(?(bracket)[+-]? |         # allow signs if there is a bracket
-                     (?(operation)[+-]?))         # or if there is a previous operation
-                     [0-9,]+)?
+                (?<int>
+                  (?(multiplication)              # if operation is multiplication
+                    (?(bracket)[+-]?) |           # a bracket is needed to allow signed
+                               [+-]?)             # else allow signed
+                  [0-9,]+)?
                 (?<decimal>(?(int)
                   (?<-int>([.][0-9]*)?) |
                            [.][0-9]+) )
@@ -44,6 +50,7 @@ namespace RegexMath.Operations
                 case "%": return (x, y) => x % y;
                 case "mod":
                 case "modulo":
+                case "modulus":
                     return (x, y) =>
                     {
                         var result = x % y;

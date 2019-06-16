@@ -12,7 +12,7 @@ namespace RegexMath.Operations
 
         // language=REGEXP
         private static string Pattern { get; } =
-            @"(?>(?<lhs>                  # use atomic grouping to prevent back-tracking
+            @"((?>(?<lhs>                  # use atomic grouping to prevent back-tracking
               (?(bracket)(?<-bracket>[(])) # save 'bracket' if there is one
               (?<x>
                   (?<int>(?(bracket)[+-]?)(?(decimal)
@@ -22,7 +22,7 @@ namespace RegexMath.Operations
                   (?<exponent>e[+-]?[0-9]+)?) 
               (?<bracket>[)])?))
 
-              (?<operation>\^|\*{2})
+              (?<operation>\^|\*{2}))+
 
               (?<rhs> 
               (?(bracket)(?<-bracket>[(])) # Have bracket match only if there is a pair
@@ -36,18 +36,7 @@ namespace RegexMath.Operations
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {
-            return Math.Pow;
-        }
-
-        protected override string Replace(Match match)
-        {
-            var operation = GetOperation();
-            var numbers = match.Groups["x"].Captures.Cast<Capture>()
-                               .Select(x => x.Value)
-                               .Where(x => double.TryParse(x, out _))
-                               .Select(double.Parse)
-                               .Reverse();
-            return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
+            return (x, y) => Math.Pow(y, x);
         }
     }
 }

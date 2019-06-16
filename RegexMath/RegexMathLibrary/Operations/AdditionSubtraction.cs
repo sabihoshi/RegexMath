@@ -13,7 +13,7 @@ namespace RegexMath.Operations
               (?>(?<lhs>                          # use atomic grouping to prevent back-tracking
               (?<bracket>[(])?                    # save 'bracket' if there is one
               (?<x>                               # save 'x' as the full number
-                (?<int>(?(bracket)[+-]?)[0-9,]+)? # match integer or commas
+                (?<int>[+-]?[0-9,]+)?             # match integer or commas
                 (?<decimal>(?(int)
                   (?<-int>([.][0-9]*)?) |         # make decimal optional if there is an 'int'
                            [.][0-9]+) )           # else make decimal required
@@ -21,7 +21,7 @@ namespace RegexMath.Operations
               (?(bracket)(?<-bracket>[)]))))      # if there is an opening bracket, include a closing one
 
              ((?<operation>
-                (?(rhs)\k<operation>|[+-]))    # back-reference operation or capture it
+                (?(rhs)\k<operation>|[+-]))       # back-reference operation or capture it
 
               (?<rhs>(?<bracket>[(])?
               (?<x>
