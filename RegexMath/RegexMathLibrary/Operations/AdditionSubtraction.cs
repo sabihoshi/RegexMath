@@ -9,8 +9,7 @@ namespace RegexMath.Operations
 
         // language=REGEXP
         private static string Pattern { get; } =
-            @"(?<=^|[(+-])                        # make sure to start at a lower order
-              (?>(?<lhs>                          # use atomic grouping to prevent back-tracking
+            @"(?>(?<lhs>                          # use atomic grouping to prevent back-tracking
               (?<bracket>[(])?                    # save 'bracket' if there is one
               (?<x>                               # save 'x' as the full number
                 (?<int>[+-]?[0-9,]+)?             # match integer or commas
@@ -30,8 +29,7 @@ namespace RegexMath.Operations
                   (?<-int>([.][0-9]*)?) |
                            [.][0-9]+) )
                 (?<exponent>e[+-]?[0-9]+)?)
-              (?(bracket)(?<-bracket>[)]))))+
-              (?=$|[)+-])                         # make sure to end at a lower order";
+              (?(bracket)(?<-bracket>[)]))))+";
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {
