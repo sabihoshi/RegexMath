@@ -9,18 +9,18 @@ namespace RegexMath.Operations
 
         // language=REGEXP
         private static string Pattern { get; } =
-            @"(?>(?<lhs>                          # use atomic grouping to prevent back-tracking
-              (?<bracket>[(])?                    # save 'bracket' if there is one
-              (?<x>                               # save 'x' as the full number
-                (?<int>[+-]?[0-9,]+)?             # match integer or commas
-                (?<decimal>(?(int)
-                  (?<-int>([.][0-9]*)?) |         # make decimal optional if there is an 'int'
-                           [.][0-9]+) )           # else make decimal required
-                (?<exponent>e[+-]?[0-9]+)?)
-              (?(bracket)(?<-bracket>[)]))))      # if there is an opening bracket, include a closing one
-
-             ((?<operation>
-                (?(rhs)\k<operation>|[+-]))       # back-reference operation or capture it
+            @"(?>(?<lhs>                     # use atomic grouping to prevent back-tracking
+              (?<bracket>[(])?               # save 'bracket' if there is one
+              (?<x>                          # save 'x' as the full number
+                (?<int>[+-]?[0-9,]+)?        # match integer or commas
+                (?<decimal>(?(int)           
+                  (?<-int>([.][0-9]*)?) |    # make decimal optional if there is an 'int'
+                           [.][0-9]+) )      # else make decimal required
+                (?<exponent>e[+-]?[0-9]+)?)  
+              (?(bracket)(?<-bracket>[)])))) # if there is an opening bracket, include a closing one
+                                             
+             ((?<operation>                  
+                (?(rhs)\k<operation>|[+-]))  # back-reference operation or capture it
 
               (?<rhs>(?<bracket>[(])?
               (?<x>
