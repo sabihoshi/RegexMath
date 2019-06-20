@@ -11,26 +11,26 @@ namespace RegexMath.Calculations
         // language=REGEXP
         private static string Pattern { get; } =
             @"((?>(?<lhs>                  # use atomic grouping to prevent back-tracking
-              (?(bracket)(?<-bracket>[(])) # save 'bracket' if there is one
+              (?<-bracket>[(])*            # balance brackets
               (?<x>
                   (?<int>(?(bracket)[+-]?)(?(decimal)
                     (?<-decimal>[0-9,]*) | # make int optional if there is a decimal
                                 [0-9,]+))  # else make int required
-                  (?<decimal>[.][0-9]+)?   # match decimals
+                  (?<decimal>[.][0-9]+)?   
                   (?<exponent>e[+-]?[0-9]+)?) 
-              (?<bracket>[)])?))
+              (?<bracket>[)])*))
 
               (?<operation>\^|\*{2}))+
 
               (?<rhs> 
-              (?(bracket)(?<-bracket>[(])) # Have bracket match only if there is a pair
+              (?<-bracket>[(])*            
               (?<x>
                   (?<int>[+-]?(?(decimal)
                     (?<-decimal>[0-9,]*) |
                                 [0-9,]+)) 
                   (?<decimal>[.][0-9]+)? 
                   (?<exponent>e[+-]?[0-9]+)?) 
-              (?<bracket>[)])?)";
+              (?<bracket>[)])*)";
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {

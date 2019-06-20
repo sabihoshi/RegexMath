@@ -11,14 +11,14 @@ namespace RegexMath.Replace
 
         private static string Pattern { get; } =
             @"((?<=^|[(^*/+-])                    # make sure to start at a lower order
-              (?<bracket>[(])                     # save 'bracket' if there is one
+              (?<bracket>[(])+                    
               (?<x>
                 (?<int>(?(bracket)[+-]?)[0-9,]+)? # match integer or commas
                 (?<decimal>(?(int)
                   (?<-int>([.][0-9]*)?) |         # make decimal optional if there is an 'int'
                            [.][0-9]+) )           # else make decimal required
                 (?<exponent>e[+-]?[0-9]+)?)
-              (?(bracket)(?<-bracket>[)]))        # if there is an opening bracket, include a closing one
+              (?<-bracket>[)])*                   # balance brackets
               (?=$|[)^*/+-]))+                    # make sure to end at a lower order";
 
         public override string MatchEvaluator(Match match)
