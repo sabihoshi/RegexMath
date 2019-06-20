@@ -10,7 +10,7 @@ namespace RegexMath.Calculations
         // language=REGEXP
         private static string Pattern { get; } =
             @"(?>(?<lhs>                          # use atomic grouping to prevent back-tracking
-              (?<bracket>[(])* 
+              (?<bracket>[(])*
               (?<x>                               # save 'x' as the full number
                 (?<int>(?(bracket)[+-]?)[0-9,]+)? # match integer or commas
                 (?<decimal>(?(int)
@@ -52,6 +52,7 @@ namespace RegexMath.Calculations
                 case "modulo":
                 case "modulus":
                     return Modulo;
+
                 default: return Multiply;
             }
         }

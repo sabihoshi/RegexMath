@@ -7,11 +7,13 @@ namespace RegexMath.Calculations
 {
     public abstract class CalculationBase : RegexBase
     {
-        protected CalculationBase(string pattern, RegexOptions options = RegexOptions.None) : base(pattern, options) { }
+        protected CalculationBase(string pattern, RegexOptions options = RegexOptions.None) : base(pattern, options)
+        {
+        }
 
         protected abstract Func<double, double, double> GetOperation(string operation = null);
 
-        public override string MatchEvaluator(Match match)
+        protected override string MatchEvaluator(Match match)
         {
             var operation = GetOperation(match.Groups["operation"].Value);
             var numbers = match.Groups["x"].Captures.Cast<Capture>()

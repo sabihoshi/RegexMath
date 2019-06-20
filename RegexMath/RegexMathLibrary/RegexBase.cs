@@ -4,8 +4,11 @@ namespace RegexMath
 {
     public abstract class RegexBase : IOperation
     {
-        protected RegexBase(string pattern, RegexOptions options = RegexOptions.None)
+        private readonly bool _repeat;
+
+        protected RegexBase(string pattern, RegexOptions options = RegexOptions.None, bool repeat = true)
         {
+            _repeat = repeat;
             options |= RegexOptions.Compiled
                      | RegexOptions.IgnorePatternWhitespace
                      | RegexOptions.IgnoreCase
@@ -20,12 +23,12 @@ namespace RegexMath
             return Regex.Replace(input, MatchEvaluator);
         }
 
-        public bool TryEvaluate(string input, out string result)
+        public virtual bool TryEvaluate(string input, out string result)
         {
             result = Evaluate(input);
-            return Regex.IsMatch(input);
+            return _repeat && Regex.IsMatch(input);
         }
 
-        public abstract string MatchEvaluator(Match match);
+        protected abstract string MatchEvaluator(Match match);
     }
 }

@@ -1,14 +1,22 @@
-﻿using System.Collections.Generic;
-using RegexMath.Calculations;
-using RegexMath.Replace;
+﻿using RegexMath.Calculations;
+using RegexMath.Cleanup;
+using System.Collections.Generic;
 
 namespace RegexMath
 {
     public static class RegexMath
     {
+        /// <summary>
+        /// The order of operations that run recursively.
+        /// Note that pattern is important
+        /// </summary>
         private static List<IOperation> Operations { get; } = new List<IOperation>
         {
+            // Cleanup
+            new Spaces(),
             new Parenthesis(),
+
+            // Calculations
             new Exponents(),
             new MultiplicationDivision(),
             new AdditionSubtraction()
@@ -16,18 +24,13 @@ namespace RegexMath
 
         private static string Calculate(string input)
         {
-            var output = input;
-
             foreach (var operation in Operations)
-                if (operation.TryEvaluate(output, out output))
-                    Calculate(ref output);
+            {
+                if (operation.TryEvaluate(input, out input))
+                    input = Calculate(input);
+            }
 
-            return output;
-        }
-
-        private static void Calculate(ref string input)
-        {
-            input = Calculate(input);
+            return input;
         }
 
         public static double Evaluate(string input)
