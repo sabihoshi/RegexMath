@@ -17,7 +17,7 @@ namespace RegexMath.Calculations
                   (?<-int>([.][0-9]*)?) |    # make decimal optional if there is an 'int'
                            [.][0-9]+) )      # else make decimal required
                 (?<exponent>e[+-]?[0-9]+)?)  
-              (?<-bracket>[)])*))            # balance brackets
+              (?(bracket)(?<-bracket>[)])+)))            # balance brackets
                                              
              ((?<operation>                  
                 (?(rhs)\k<operation>|[+-]))  # back-reference operation or capture it
@@ -29,7 +29,7 @@ namespace RegexMath.Calculations
                   (?<-int>([.][0-9]*)?) |
                            [.][0-9]+) )
                 (?<exponent>e[+-]?[0-9]+)?)
-              (?<-bracket>[)])*))+";
+              (?(bracket)(?<-bracket>[)])+)))+";
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {

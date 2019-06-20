@@ -18,7 +18,7 @@ namespace RegexMath.Replace
                   (?<-int>([.][0-9]*)?) |         # make decimal optional if there is an 'int'
                            [.][0-9]+) )           # else make decimal required
                 (?<exponent>e[+-]?[0-9]+)?)
-              (?<-bracket>[)])*                   # balance brackets
+              (?<-bracket>[)])+                   # balance brackets
               (?=$|[)^*/+-]))+                    # make sure to end at a lower order";
 
         public override string MatchEvaluator(Match match)

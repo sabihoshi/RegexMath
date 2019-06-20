@@ -10,12 +10,12 @@ namespace RegexMath.Calculations
 
         // language=REGEXP
         private static string Pattern { get; } =
-            @"((?>(?<lhs>                  # use atomic grouping to prevent back-tracking
-              (?<-bracket>[(])*            # balance brackets
+            @"((?>(?<lhs>                   # use atomic grouping to prevent back-tracking
+              (?(bracket)(?<-bracket>[(])+) # balance brackets
               (?<x>
                   (?<int>(?(bracket)[+-]?)(?(decimal)
-                    (?<-decimal>[0-9,]*) | # make int optional if there is a decimal
-                                [0-9,]+))  # else make int required
+                    (?<-decimal>[0-9,]*) |  # make int optional if there is a decimal
+                                [0-9,]+))   # else make int required
                   (?<decimal>[.][0-9]+)?   
                   (?<exponent>e[+-]?[0-9]+)?) 
               (?<bracket>[)])*))
@@ -23,7 +23,7 @@ namespace RegexMath.Calculations
               (?<operation>\^|\*{2}))+
 
               (?<rhs> 
-              (?<-bracket>[(])*            
+              (?(bracket)(?<-bracket>[(])+)            
               (?<x>
                   (?<int>[+-]?(?(decimal)
                     (?<-decimal>[0-9,]*) |
