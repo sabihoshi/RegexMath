@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Globalization;
-using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace RegexMath.Operations
+namespace RegexMath.Calculations
 {
-    public sealed class Exponents : Calculation
+    public sealed class Exponents : CalculationBase
     {
         public Exponents()
             : base(Pattern, RegexOptions.RightToLeft) { }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace RegexMath.Operations
+namespace RegexMath.Calculations
 {
-    public sealed class MultiplicationDivision : Calculation
+    public sealed class MultiplicationDivision : CalculationBase
     {
         public MultiplicationDivision()
             : base(Pattern) { }

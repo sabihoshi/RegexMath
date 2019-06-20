@@ -1,37 +1,18 @@
-﻿using RegexMath.Operations;
+﻿using RegexMath.Calculations;
+using RegexMath.Replace;
+using System.Collections.Generic;
 
 namespace RegexMath
 {
     public static class RegexMath
     {
-        private static AdditionSubtraction AS { get; } = new AdditionSubtraction();
-        private static Exponents E { get; } = new Exponents();
-        private static MultiplicationDivision MD { get; } = new MultiplicationDivision();
-        private static Parenthesis P { get; } = new Parenthesis();
-
-        private static string Calculate(string input)
+        private static List<IOperation> Operations { get; } = new List<IOperation>
         {
-            var output = input;
-
-            if (P.TryEvaluate(output, out output))
-                Calculate(ref output);
-
-            if (E.TryEvaluate(output, out output))
-                Calculate(ref output);
-
-            if (MD.TryEvaluate(output, out output))
-                Calculate(ref output);
-
-            if (AS.TryEvaluate(output, out output))
-                Calculate(ref output);
-
-            return output;
-        }
-
-        private static void Calculate(ref string input)
-        {
-            input = Calculate(input);
-        }
+            new Parenthesis(),
+            new Exponents(),
+            new MultiplicationDivision(),
+            new AdditionSubtraction()
+        };
 
         public static double Evaluate(string input)
         {
@@ -41,6 +22,24 @@ namespace RegexMath
         public static bool TryEvaluate(ref string input, out double result)
         {
             return double.TryParse(Calculate(input), out result);
+        }
+
+        private static string Calculate(string input)
+        {
+            var output = input;
+
+            foreach (var operation in Operations)
+            {
+                if (operation.TryEvaluate(output, out output))
+                    Calculate(ref output); 
+            }
+
+            return output;
+        }
+
+        private static void Calculate(ref string input)
+        {
+            input = Calculate(input);
         }
     }
 }

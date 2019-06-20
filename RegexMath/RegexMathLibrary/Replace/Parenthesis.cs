@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace RegexMath.Operations
+namespace RegexMath.Replace
 {
-    public sealed class Parenthesis : Calculation
+    public sealed class Parenthesis : RegexBase
     {
         public Parenthesis()
             : base(Pattern) { }
@@ -19,9 +19,9 @@ namespace RegexMath.Operations
                            [.][0-9]+) )           # else make decimal required
                 (?<exponent>e[+-]?[0-9]+)?)
               (?(bracket)(?<-bracket>[)]))        # if there is an opening bracket, include a closing one
-              (?=$|[)^*/+-]))                     # make sure to end at a lower order";                               
+              (?=$|[)^*/+-]))+                    # make sure to end at a lower order";
 
-        protected override string Replace(Match match)
+        public override string MatchEvaluator(Match match)
         {
             return match.Groups["x"].Value;
         }

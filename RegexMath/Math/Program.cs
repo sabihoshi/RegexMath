@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RegexMath
+namespace Math
 {
     internal class Program
     {
@@ -9,7 +9,7 @@ namespace RegexMath
             while (true)
             {
                 var input = Console.ReadLine();
-                Console.WriteLine($"{input} = {RegexMath.Evaluate(input)}");
+                Console.WriteLine($"{input} = {RegexMath.RegexMath.Evaluate(input)}");
             }
         }
     }
