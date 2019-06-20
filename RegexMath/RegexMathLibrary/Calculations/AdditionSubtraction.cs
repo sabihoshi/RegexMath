@@ -33,9 +33,15 @@ namespace RegexMath.Calculations
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {
-            if (operation == "+")
-                return (x, y) => x + y;
-            return (x, y) => x - y;
+            switch (operation)
+            {
+                case "-": return Subtract;
+                default: return Add;
+            }
         }
+
+        private static double Subtract(double x, double y) => x - y;
+
+        private static double Add(double x, double y) => x + y;
     }
 }

@@ -45,21 +45,28 @@ namespace RegexMath.Calculations
         {
             switch (operation)
             {
-                case "/": return (x, y) => x / y;
+                case "/": return Divide;
                 case "rem":
-                case "%": return (x, y) => x % y;
+                case "%": return Remainder;
                 case "mod":
                 case "modulo":
                 case "modulus":
-                    return (x, y) =>
-                    {
-                        var result = x % y;
-                        if ((result < 0 && y > 0) || (result > 0 && y < 0))
-                            result += y;
-                        return result;
-                    };
-                default: return (x, y) => x * y;
+                    return Modulo;
+                default: return Multiply;
             }
+        }
+
+        private static double Multiply(double x, double y) => x * y;
+
+        private static double Remainder(double x, double y) => x % y;
+
+        private static double Divide(double x, double y) => x / y;
+
+        private static double Modulo(double x, double y)
+        {
+            var result = x % y;
+            if (result < 0 && y > 0 || result > 0 && y < 0) result += y;
+            return result;
         }
     }
 }

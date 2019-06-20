@@ -20,12 +20,12 @@ namespace RegexMath
             return Regex.Replace(input, MatchEvaluator);
         }
 
-        public abstract string MatchEvaluator(Match match);
-
         public bool TryEvaluate(string input, out string result)
         {
             result = Evaluate(input);
             return Regex.IsMatch(input);
         }
+
+        public abstract string MatchEvaluator(Match match);
     }
 }

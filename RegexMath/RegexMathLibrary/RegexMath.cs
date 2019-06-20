@@ -1,6 +1,6 @@
-﻿using RegexMath.Calculations;
+﻿using System.Collections.Generic;
+using RegexMath.Calculations;
 using RegexMath.Replace;
-using System.Collections.Generic;
 
 namespace RegexMath
 {
@@ -14,6 +14,22 @@ namespace RegexMath
             new AdditionSubtraction()
         };
 
+        private static string Calculate(string input)
+        {
+            var output = input;
+
+            foreach (var operation in Operations)
+                if (operation.TryEvaluate(output, out output))
+                    Calculate(ref output);
+
+            return output;
+        }
+
+        private static void Calculate(ref string input)
+        {
+            input = Calculate(input);
+        }
+
         public static double Evaluate(string input)
         {
             return double.Parse(Calculate(input));
@@ -22,24 +38,6 @@ namespace RegexMath
         public static bool TryEvaluate(ref string input, out double result)
         {
             return double.TryParse(Calculate(input), out result);
-        }
-
-        private static string Calculate(string input)
-        {
-            var output = input;
-
-            foreach (var operation in Operations)
-            {
-                if (operation.TryEvaluate(output, out output))
-                    Calculate(ref output); 
-            }
-
-            return output;
-        }
-
-        private static void Calculate(ref string input)
-        {
-            input = Calculate(input);
         }
     }
 }
