@@ -17,7 +17,7 @@ namespace RegexMath.Calculations
                   (?<-int>([.][0-9]*)?) |         # make decimal optional if there is an 'int'
                            [.][0-9]+) )           # else make decimal required
                 (?<exponent>e[+-]?[0-9]+)?)
-              (?(bracket)(?<-bracket>[)])+)))                 # balance brackets
+              (?(bracket)(?<-bracket>[)])+)))     # balance brackets
 
              ((?(operation)
                 (?(multiplication)[*]? |          # if operation is multiplication, have it be optional
