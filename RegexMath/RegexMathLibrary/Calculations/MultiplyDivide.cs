@@ -2,9 +2,9 @@
 
 namespace RegexMath.Calculations
 {
-    public sealed class MultiplicationDivision : CalculationBase
+    public sealed class MultiplyDivide : CalculationBase
     {
-        public MultiplicationDivision()
+        public MultiplyDivide()
             : base(Pattern) { }
 
         // language=REGEXP

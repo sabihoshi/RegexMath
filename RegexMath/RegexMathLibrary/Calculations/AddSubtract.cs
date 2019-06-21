@@ -2,9 +2,9 @@
 
 namespace RegexMath.Calculations
 {
-    public sealed class AdditionSubtraction : CalculationBase
+    public sealed class AddSubtract : CalculationBase
     {
-        public AdditionSubtraction()
+        public AddSubtract()
             : base(Pattern) { }
 
         // language=REGEXP

@@ -35,7 +35,7 @@ namespace RegexMath.Tests
 
         [Theory]
         [InlineData("2^8", 256)]
-        [InlineData("Math.Pow(2|8)", 256)]
+        [InlineData("Math.Pow(2,8)", 256)]
         [InlineData("2^3^2", 512)]
         public void Exponent_ShouldCalculate(string input, double expected)
         {
@@ -44,7 +44,7 @@ namespace RegexMath.Tests
 
         [Theory]
         [InlineData("sqrt(4)", 2)]
-        [InlineData("Math.Root(4|2)", 2)]
+        [InlineData("Math.Root(4,2)", 2)]
         [InlineData("Math.Sqrt(4)", 2)]
         [InlineData("Math.Sqrt(255)", 15.96871942267131199907024517698061384156734970437542667323)]
         public void Sqrt_ShouldCalculate(string input, double expected)

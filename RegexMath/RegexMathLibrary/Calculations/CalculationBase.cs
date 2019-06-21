@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -7,7 +6,8 @@ namespace RegexMath.Calculations
 {
     public abstract class CalculationBase : RegexBase
     {
-        protected CalculationBase(string pattern, RegexOptions options = RegexOptions.None) : base(pattern, options)
+        protected CalculationBase(string pattern, RegexOptions options = RegexOptions.None, bool repeat = true) : base(pattern, options,
+            repeat)
         {
         }
 
@@ -19,7 +19,7 @@ namespace RegexMath.Calculations
             var numbers = match.Groups["x"].Captures.Cast<Capture>()
                                .Where(x => double.TryParse(x.Value, out _))
                                .Select(x => double.Parse(x.Value));
-            return numbers.Aggregate(operation).ToString(CultureInfo.CurrentCulture);
+            return numbers.Aggregate(operation).ToString();
         }
     }
 }

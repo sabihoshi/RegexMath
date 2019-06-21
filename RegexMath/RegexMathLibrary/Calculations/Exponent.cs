@@ -3,9 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace RegexMath.Calculations
 {
-    public sealed class Exponents : CalculationBase
+    public sealed class Exponent : CalculationBase
     {
-        public Exponents()
+        public Exponent()
             : base(Pattern, RegexOptions.RightToLeft) { }
 
         // language=REGEXP

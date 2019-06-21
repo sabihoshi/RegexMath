@@ -14,12 +14,13 @@ namespace RegexMath
         {
             // Cleanup
             new Spaces(),
+            new Constants(),
             new Parenthesis(),
 
             // Calculations
-            new Exponents(),
-            new MultiplicationDivision(),
-            new AdditionSubtraction()
+            new Exponent(),
+            new MultiplyDivide(),
+            new AddSubtract()
         };
 
         private static string Calculate(string input)

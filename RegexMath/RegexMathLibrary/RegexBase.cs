@@ -31,4 +31,4 @@ namespace RegexMath
 
         protected abstract string MatchEvaluator(Match match);
     }
-}
+} 
