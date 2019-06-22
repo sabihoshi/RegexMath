@@ -25,8 +25,8 @@ namespace RegexMath.Cleanup
             var exponent = string.IsNullOrWhiteSpace(match.Groups["exponent"].Value);
             switch (constant)
             {
-                case "PI": return Math.PI.ToString();
-                case "E":  return integer || exponent ? Math.E.ToString() : "e";
+                case "PI": return $"({Math.PI})";
+                case "E":  return integer || exponent ? $"({Math.E})" : "e";
                 default:   return string.Empty;
             }
         }

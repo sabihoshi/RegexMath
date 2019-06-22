@@ -27,7 +27,8 @@ namespace RegexMath
             new Factorial(),
             new Exponent(),
             new MultiplyDivide(),
-            new AddSubtract()
+            new AddSubtract(),
+            new BitShift()
         };
 
         private static string Calculate(string input)

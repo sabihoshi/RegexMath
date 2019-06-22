@@ -8,7 +8,7 @@ namespace RegexMath.Cleanup
             : base(Pattern, recursive: false) { }
 
         /* language=REGEXP */
-        private static string Pattern { get; } = @"(?=\s)\s+";
+        private static string Pattern { get; } = @"\s+";
 
         protected override string MatchEvaluator(Match match)
         {
