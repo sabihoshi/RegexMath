@@ -1,6 +1,7 @@
-﻿using RegexMath.Calculations;
+﻿using RegexMath.Calculations.Binary;
 using RegexMath.Cleanup;
 using System.Collections.Generic;
+using RegexMath.Calculations.Unary;
 
 namespace RegexMath
 {
@@ -17,7 +18,12 @@ namespace RegexMath
             new Constants(),
             new Parenthesis(),
 
+            // Methods
+            new UnaryMethods(),
+            new BinaryMethods(),
+
             // Calculations
+            new Factorial(),
             new Exponent(),
             new MultiplyDivide(),
             new AddSubtract()
@@ -28,7 +34,7 @@ namespace RegexMath
             foreach (var operation in Operations)
             {
                 if (operation.TryEvaluate(input, out input))
-                    input = Calculate(input);
+                input = Calculate(input);
             }
 
             return input;

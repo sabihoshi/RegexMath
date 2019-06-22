@@ -5,7 +5,7 @@ namespace RegexMath.Cleanup
     public class Spaces : RegexBase
     {
         public Spaces()
-            : base(Pattern, repeat:false) { }
+            : base(Pattern, recursive: false) { }
 
         /* language=REGEXP */
         private static string Pattern { get; } = @"(?=\s)\s+";

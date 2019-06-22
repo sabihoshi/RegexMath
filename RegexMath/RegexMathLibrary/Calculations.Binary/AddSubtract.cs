@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace RegexMath.Calculations
+namespace RegexMath.Calculations.Binary
 {
-    public sealed class AddSubtract : CalculationBase
+    public sealed class AddSubtract : BinaryCalculation
     {
         public AddSubtract()
             : base(Pattern) { }
@@ -36,7 +36,8 @@ namespace RegexMath.Calculations
             switch (operation)
             {
                 case "-": return Subtract;
-                default: return Add;
+                case "+": return Add;
+                default:  throw new InvalidOperationException();
             }
         }
 

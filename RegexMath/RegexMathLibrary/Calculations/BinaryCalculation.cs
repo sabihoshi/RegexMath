@@ -4,10 +4,12 @@ using System.Text.RegularExpressions;
 
 namespace RegexMath.Calculations
 {
-    public abstract class CalculationBase : RegexBase
+    public abstract class BinaryCalculation : RegexBase
     {
-        protected CalculationBase(string pattern, RegexOptions options = RegexOptions.None, bool repeat = true) : base(pattern, options,
-            repeat)
+        protected BinaryCalculation(string pattern,
+                                    RegexOptions options = RegexOptions.IgnoreCase,
+                                  bool recursive = true)
+                           : base(pattern, options, recursive)
         {
         }
 
