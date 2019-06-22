@@ -13,6 +13,7 @@ namespace RegexMath.Calculations.Binary
 
         private static string Exponents { get; } =
             @"(?<exponent>e[+-]?[0-9]+)?)";
+
         // language=REGEXP
         private static string Pattern { get; } =
             $@"((?>                          # use atomic grouping to prevent back-tracking

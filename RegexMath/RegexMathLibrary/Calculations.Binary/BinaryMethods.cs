@@ -14,7 +14,7 @@ namespace RegexMath.Calculations.Binary
                (?<operation>Atan2 | IEEERemainder
                           | Log | Max | Min | Pow 
                           | Root | Round)
-               [(]{Number},{Number}[)]";
+               [(]{UNumber},{UNumber}[)]";
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {

@@ -1,4 +1,5 @@
-﻿using RegexMath.Calculations.Binary;
+﻿using System;
+using RegexMath.Calculations.Binary;
 using RegexMath.Cleanup;
 using System.Collections.Generic;
 using RegexMath.Calculations.Unary;
@@ -34,7 +35,10 @@ namespace RegexMath
             foreach (var operation in Operations)
             {
                 if (operation.TryEvaluate(input, out input))
-                input = Calculate(input);
+                {
+                    Console.WriteLine(input);
+                    input = Calculate(input);
+                }
             }
 
             return input;

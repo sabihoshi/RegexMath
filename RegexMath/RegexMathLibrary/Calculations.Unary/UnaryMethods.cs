@@ -17,7 +17,7 @@ namespace RegexMath.Calculations.Unary
                           | Exp | Floor | Log | Log10
                           | Round | Sign | Sqrt | Tan 
                           | Tanh | Truncate)
-               [(]{Number}[)]";
+               [(]{UNumber}[)]";
 
         protected override Func<double, double> GetOperation(string operation = null)
         {

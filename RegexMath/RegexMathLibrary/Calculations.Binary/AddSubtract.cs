@@ -8,28 +8,13 @@ namespace RegexMath.Calculations.Binary
             : base(Pattern) { }
 
         // language=REGEXP
+        private static string Operation { get; } =
+            @"(?<operation>
+                (?(rhs)\k<operation>|[+-])) (?# back-reference operation or capture it)";
+
+        // language=REGEXP
         private static string Pattern { get; } =
-            @"(?>(?<lhs>                      # use atomic grouping to prevent back-tracking
-              (?<bracket>[(])*
-              (?<x>                           # save 'x' as the full number
-                (?<int>[+-]?[0-9,]+)?         # match integer or commas
-                (?<decimal>(?(int)
-                  (?<-int>([.][0-9]*)?) |     # make decimal optional if there is an 'int'
-                           [.][0-9]+) )       # else make decimal required
-                (?<exponent>e[+-]?[0-9]+)?)
-              (?(bracket)(?<-bracket>[)])+))) # balance brackets
-
-             ((?<operation>
-                (?(rhs)\k<operation>|[+-]))   # back-reference operation or capture it
-
-              (?<rhs>(?<bracket>[(])*
-              (?<x>
-                (?<int>[+-]?[0-9,]+)?
-                (?<decimal>(?(int)
-                  (?<-int>([.][0-9]*)?) |
-                           [.][0-9]+) )
-                (?<exponent>e[+-]?[0-9]+)?)
-              (?(bracket)(?<-bracket>[)])+)))+";
+            $@"(?>{UNumber}) ({Operation} (?<rhs>{UNumber}))+";
 
         protected override Func<double, double, double> GetOperation(string operation = null)
         {
