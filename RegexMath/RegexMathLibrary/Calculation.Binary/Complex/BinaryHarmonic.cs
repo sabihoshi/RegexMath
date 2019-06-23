@@ -10,9 +10,9 @@ namespace RegexMath.Calculation.Binary.Complex
             : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
-            $@"H_{Int}, {Number} |
-               (Gen(eral(ized)?)?Harmonic
-               [(]{Int}, {Number}[)]";
+            $@"H_(?<x>{Int}), {Number} |
+               (Gen(eral(ized)?)?)?Harmonic
+               [(](?<x>{Int}), {Number}[)]";
         protected override Func<double, double, double> GetOperation(string operation)
         {
             return (x, y) => SpecialFunctions.GeneralHarmonic((int) x, y);

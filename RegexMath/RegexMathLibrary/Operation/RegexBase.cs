@@ -17,10 +17,10 @@ namespace RegexMath.Operation
         private Regex Regex { get; }
 
         private protected static string UInt { get; } =
-            @"(?<int>(?(bracket)[+-]?)[0-9,]+)? (?# match integer or commas)";
+            @"(?<int>(?(bracket)[+-]?)[0-9,]+)  (?# match integer or commas)";
 
         private protected static string Int { get; } =
-            @"(?<int>[+-]?[0-9,]+)?             (?# allow sign for right side)";
+            @"(?<int>[+-]?[0-9,]+)              (?# allow sign for right side)";
 
         private protected static string Decimal { get; } =
             @"(?<decimal>(?(int)
@@ -32,12 +32,12 @@ namespace RegexMath.Operation
 
         private protected static string UNumber { get; } =
             $@"(?<bracket>[(])*
-               (?<x>{UInt}{Decimal}{Exponent})  (?# save 'x' as the full number)
+               (?<x>{UInt}?{Decimal}{Exponent})  (?# save 'x' as the full number)
                (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
 
         private protected static string Number { get; } =
             $@"(?<bracket>[(])*
-               (?<x>{Int}{Decimal}{Exponent})   (?# save 'x' as the full number)
+               (?<x>{Int}?{Decimal}{Exponent})   (?# save 'x' as the full number)
                (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
 
         public virtual string Evaluate(string input)
