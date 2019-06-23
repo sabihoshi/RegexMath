@@ -7,7 +7,7 @@ namespace RegexMath.Calculation.Unary.Arithmetic
     public class Constants : RegexBase
     {
         public Constants()
-            : base(Pattern, RegexOptions.None, false) { }
+            : base(Pattern, recursive:false) { }
 
         private static string Pattern { get; } =
             $@"(?<constant>[π|ℇ]|epsilon) |
@@ -18,7 +18,7 @@ namespace RegexMath.Calculation.Unary.Arithmetic
                  (?<constant>E)
                (?![+-]?[0-9]+))) |     # don't include if scientific notation
 
-               (?<=(?i:Log_))(?<constant>(?i:E))";
+               (?<=Log_)(?<constant>E)";
 
         protected override string MatchEvaluator(Match match)
         {

@@ -64,7 +64,7 @@ namespace RegexMath
             return double.Parse(Calculate(input));
         }
 
-        public static bool TryEvaluate(ref string input, out double result)
+        public static bool TryEvaluate(string input, out double result)
         {
             return double.TryParse(Calculate(input), out result);
         }

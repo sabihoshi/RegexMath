@@ -9,7 +9,10 @@ namespace Math
             while (true)
             {
                 var input = Console.ReadLine();
-                Console.WriteLine($"{input} = {RegexMath.RegexMath.Evaluate(input)}");
+                var success = RegexMath.RegexMath.TryEvaluate(input, out var result);
+                Console.WriteLine(success);
+                if(success)
+                    Console.WriteLine($"{input} = {result}");
             }
         }
     }
