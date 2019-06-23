@@ -16,26 +16,26 @@ namespace RegexMath.Operation
         private readonly bool _recursive;
         private Regex Regex { get; }
 
-        private protected static string UInt { get; } =
+        protected static string UInt { get; } =
             @"(?<int>(?(bracket)[+-]?)[0-9,]+)  (?# match integer or commas)";
 
-        private protected static string Int { get; } =
+        protected static string Int { get; } =
             @"(?<int>[+-]?[0-9,]+)              (?# allow sign for right side)";
 
-        private protected static string Decimal { get; } =
+        protected static string Decimal { get; } =
             @"(?<decimal>(?(int)
                   (?<-int>([.][0-9]*)?) |       (?# make decimal optional if there is an 'int')
                            [.][0-9]+) )         (?# else make decimal required)";
 
-        private protected static string Exponent { get; } =
+        protected static string Exponent { get; } =
             @"(?<exponent>e[+-]?[0-9]+)?";
 
-        private protected static string UNumber { get; } =
+        protected static string UNumber { get; } =
             $@"(?<bracket>[(])*
                (?<x>{UInt}?{Decimal}{Exponent})  (?# save 'x' as the full number)
                (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
 
-        private protected static string Number { get; } =
+        protected static string Number { get; } =
             $@"(?<bracket>[(])*
                (?<x>{Int}?{Decimal}{Exponent})   (?# save 'x' as the full number)
                (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
