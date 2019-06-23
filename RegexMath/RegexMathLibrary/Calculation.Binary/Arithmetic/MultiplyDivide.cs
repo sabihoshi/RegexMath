@@ -1,13 +1,13 @@
 ﻿using System;
+using RegexMath.Calculation.Operation;
 
-namespace RegexMath.Calculations.Binary
+namespace RegexMath.Calculation.Binary.Arithmetic
 {
     public sealed class MultiplyDivide : BinaryCalculation
     {
         public MultiplyDivide()
             : base(Pattern) { }
 
-        // language=REGEXP
         private static string Operation { get; } =
             @"(?(operation)
                 (?(multiplication)[*]? | # if operation is multiplication, have it be optional
@@ -18,9 +18,8 @@ namespace RegexMath.Calculations.Binary
                    mod(ul(o|us))?) |
                   (?<multiplication>[*]?)))";
 
-        // language=REGEXP
         private static string Pattern { get; } =
-            $@"(?>{Number})   
+            $@"(?>{UNumber})
 
               ({Operation}
 
@@ -36,7 +35,7 @@ namespace RegexMath.Calculations.Binary
               )
               (?(bracket)(?<-bracket>[)])+))+";
 
-        protected override Func<double, double, double> GetOperation(string operation = null)
+        protected override Func<double, double, double> GetOperation(string operation)
         {
             switch (operation)
             {

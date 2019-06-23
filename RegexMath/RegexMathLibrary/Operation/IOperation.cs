@@ -1,4 +1,4 @@
-﻿namespace RegexMath
+﻿namespace RegexMath.Operation
 {
     public interface IOperation
     {

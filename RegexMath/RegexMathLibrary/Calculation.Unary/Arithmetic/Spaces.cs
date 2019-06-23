@@ -1,8 +1,9 @@
 ﻿using System.Text.RegularExpressions;
+using RegexMath.Operation;
 
-namespace RegexMath.Cleanup
+namespace RegexMath.Calculation.Unary.Arithmetic
 {
-    public class Spaces : RegexBase
+    public sealed class Spaces : RegexBase
     {
         public Spaces()
             : base(Pattern, recursive: false) { }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using RegexMath.Calculation.Operation;
 
-namespace RegexMath.Calculations.Binary
+namespace RegexMath.Calculation.Binary.Arithmetic
 {
     public sealed class Exponent : BinaryCalculation
     {
@@ -12,9 +13,8 @@ namespace RegexMath.Calculations.Binary
             @"(?<decimal>[.][0-9]+)?";
 
         private static string Exponents { get; } =
-            @"(?<exponent>e[+-]?[0-9]+)?)";
+            @"(?<exponent>e[+-]?[0-9]+)?";
 
-        // language=REGEXP
         private static string Pattern { get; } =
             $@"((?>                          # use atomic grouping to prevent back-tracking
                (?(bracket)(?<-bracket>[(])+) # balance brackets
@@ -24,6 +24,7 @@ namespace RegexMath.Calculations.Binary
                                  [0-9,]+))   # else make int required
                    {Decimal}
                    {Exponents}
+               )
                (?<bracket>[)])*)
 
                (?<operation>\^|\*{{2}}))+
@@ -35,9 +36,10 @@ namespace RegexMath.Calculations.Binary
                                 [0-9,]+))
                    {Decimal}
                    {Exponents}
+               )
                (?<bracket>[)])*";
 
-        protected override Func<double, double, double> GetOperation(string operation = null)
+        protected override Func<double, double, double> GetOperation(string operation)
         {
             return (x, y) => Math.Pow(y, x);
         }

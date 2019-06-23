@@ -1,8 +1,10 @@
 ﻿using System;
-using RegexMath.Calculations.Binary;
-using RegexMath.Cleanup;
 using System.Collections.Generic;
-using RegexMath.Calculations.Unary;
+using RegexMath.Calculation.Binary.Arithmetic;
+using RegexMath.Calculation.Binary.Complex;
+using RegexMath.Calculation.Unary.Arithmetic;
+using RegexMath.Calculation.Unary.Complex;
+using RegexMath.Operation;
 
 namespace RegexMath
 {
@@ -10,20 +12,32 @@ namespace RegexMath
     {
         /// <summary>
         /// The order of operations that run recursively.
-        /// Note that pattern is important
+        /// Note that the order is important
         /// </summary>
         private static List<IOperation> Operations { get; } = new List<IOperation>
         {
             // Cleanup
+            new Abs(),
             new Spaces(),
             new Constants(),
             new Parenthesis(),
 
-            // Methods
-            new UnaryMethods(),
+            // Binary
+            new BinaryGamma(),
+            new BinaryHarmonic(),
             new BinaryMethods(),
+            new Euler(),
+            new Log(),
 
-            // Calculations
+            // Unary
+            new Error(),
+            new Sigmoid(),
+            new Trigonometry(),
+            new UnaryGamma(),
+            new UnaryHarmonic(),
+            new UnaryMethods(),
+
+            // Arithmetic
             new Factorial(),
             new Exponent(),
             new MultiplyDivide(),

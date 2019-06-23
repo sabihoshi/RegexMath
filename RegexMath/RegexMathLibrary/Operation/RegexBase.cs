@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace RegexMath
+namespace RegexMath.Operation
 {
     public abstract class RegexBase : IOperation
     {
@@ -16,32 +16,28 @@ namespace RegexMath
         private readonly bool _recursive;
         private Regex Regex { get; }
 
-        // language=REGEXP
-        private protected static string Int { get; } =
+        private protected static string UInt { get; } =
             @"(?<int>(?(bracket)[+-]?)[0-9,]+)? (?# match integer or commas)";
 
-        // language=REGEXP
-        private protected static string UInt { get; } =
+        private protected static string Int { get; } =
             @"(?<int>[+-]?[0-9,]+)?             (?# allow sign for right side)";
 
-        // language=REGEXP
         private protected static string Decimal { get; } =
             @"(?<decimal>(?(int)
                   (?<-int>([.][0-9]*)?) |       (?# make decimal optional if there is an 'int')
-                           [.][0-9]+) )         (?# else make decimal required)"; 
+                           [.][0-9]+) )         (?# else make decimal required)";
 
-        // language=REGEXP
         private protected static string Exponent { get; } =
             @"(?<exponent>e[+-]?[0-9]+)?";
-
-        private protected static string Number { get; } =
-            $@"(?<bracket>[(])*
-               (?<x>{Int}{Decimal}{Exponent})   (?# save 'x' as the full number)
-               (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
 
         private protected static string UNumber { get; } =
             $@"(?<bracket>[(])*
                (?<x>{UInt}{Decimal}{Exponent})  (?# save 'x' as the full number)
+               (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
+
+        private protected static string Number { get; } =
+            $@"(?<bracket>[(])*
+               (?<x>{Int}{Decimal}{Exponent})   (?# save 'x' as the full number)
                (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
 
         public virtual string Evaluate(string input)
