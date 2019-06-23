@@ -11,7 +11,7 @@ namespace RegexMath.Calculation.Binary.Complex
         private static string Pattern { get; } =
             $@"(Math[.])?
                (?<operation>Atan2 | IEEERemainder
-                          | Log | Max | Min | Pow
+                          | Max | Min | Pow
                           | Root | Round)
                [(]{Number}, {Number}[)]";
 
@@ -21,7 +21,6 @@ namespace RegexMath.Calculation.Binary.Complex
             {
                 case "atan2":         return Math.Atan2;
                 case "ieeeremainder": return Math.IEEERemainder;
-                case "log":           return (newBase, n) => Math.Log(n, newBase);
                 case "max":           return Math.Max;
                 case "min":           return Math.Min;
                 case "pow":           return Math.Pow;

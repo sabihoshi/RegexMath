@@ -9,7 +9,8 @@ namespace RegexMath.Calculation.Binary.Complex
             : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
-            $@"Log_{Number}[(]{Number}[)]";
+            $@"Log_{Number}[(]{Number}[)]|
+               Log[(]{Number},{Number}[)]";
 
         protected override Func<double, double, double> GetOperation(string operation)
         {
