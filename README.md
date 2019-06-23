@@ -1,4 +1,5 @@
-# RegexMath [![CodeFactor](https://www.codefactor.io/repository/github/hizamakura/regexmath/badge/master)](https://www.codefactor.io/repository/github/hizamakura/regexmath/overview/master)
+# RegexMath [![Build status](https://ci.appveyor.com/api/projects/status/syavs460i5pgeoiq?svg=true)](https://ci.appveyor.com/project/hizamakura/regexmath) [![CodeFactor](https://www.codefactor.io/repository/github/hizamakura/regexmath/badge/master)](https://www.codefactor.io/repository/github/hizamakura/regexmath/overview/master) 
+
 A math engine written in C# using RegEx.
 
 ## Why?
