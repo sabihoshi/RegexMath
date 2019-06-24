@@ -17,22 +17,26 @@ namespace RegexMath
         private static List<IOperation> Operations { get; } = new List<IOperation>
         {
             // Cleanup
-            new Abs(),
             new Spaces(),
+            new Abs(),
             new Constants(),
             new Parenthesis(),
 
             // Binary
+            new Euler(),
+            new Hypotenuse(),
+            new Integral(),
+            new Log(),
+            new BinaryDifferential(),
             new BinaryGamma(),
             new BinaryHarmonic(),
             new BinaryMethods(),
-            new Euler(),
-            new Log(),
 
             // Unary
             new Error(),
             new Sigmoid(),
             new Trigonometry(),
+            new UnaryDifferential(),
             new UnaryGamma(),
             new UnaryHarmonic(),
             new UnaryMethods(),

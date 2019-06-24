@@ -1,4 +1,4 @@
-# RegexMath [![Build status](https://ci.appveyor.com/api/projects/status/syavs460i5pgeoiq?svg=true)](https://ci.appveyor.com/project/hizamakura/regexmath) [![CodeFactor](https://www.codefactor.io/repository/github/hizamakura/regexmath/badge/master)](https://www.codefactor.io/repository/github/hizamakura/regexmath/overview/master) 
+# RegexMath [![Build Status](https://dev.azure.com/kaworinakano/RegexMath/_apis/build/status/hizamakura.RegexMath?branchName=master)](https://dev.azure.com/kaworinakano/RegexMath/_build/latest?definitionId=1&branchName=master) [![Build status](https://ci.appveyor.com/api/projects/status/syavs460i5pgeoiq?svg=true)](https://ci.appveyor.com/project/hizamakura/regexmath) [![CodeFactor](https://www.codefactor.io/repository/github/hizamakura/regexmath/badge/master)](https://www.codefactor.io/repository/github/hizamakura/regexmath/overview/master)
 
 A math engine written in C# using RegEx.
 
@@ -22,10 +22,10 @@ RegexMath.TryEvaluate(input, our var result);
 
 ## Features
 
-### Standard Arithmetic: 
+### Standard Arithmetic:
 `^`, `**`, `*`, `/`, `%`, `+`, and `-`
 
-### Constants: 
+### Constants:
 `PI` and `E`
 
 ### Standard Math functions:
@@ -34,14 +34,14 @@ RegexMath.TryEvaluate(input, our var result);
 - `root(x, y)`
 - `log_x(y)` or `log(x, y)`
 - `min(x, y)` or `max(x, y)`
-    
+
 and a lot more...
-    
+
 ### Programming constructs:
 - Modulo
 - Remainder
 - Bitshift
-  
+
 ### Complex calcuations:
 - Factorial on non-natural numbers
 - Euler Beta functions
@@ -50,7 +50,7 @@ and a lot more...
 - Gamma functions
 - Harmonic numbers
 - Trigonometry
-  
+
 ## TODO:
 - Summation in the form of `Σ/sum/sigma[i=1, 6][3i + 4]`
 - Product in the form of `Π/prod/product[i=1, 3][3i + 4]`

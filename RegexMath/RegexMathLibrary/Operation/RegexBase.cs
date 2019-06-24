@@ -32,12 +32,12 @@ namespace RegexMath.Operation
 
         protected static string UNumber { get; } =
             $@"(?<bracket>[(])*
-               (?<x>{UInt}?{Decimal}{Exponent})  (?# save 'x' as the full number)
+               (?<x>{UInt}?{Decimal}{Exponent}) (?# save 'x' as the full number)
                (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
 
         protected static string Number { get; } =
             $@"(?<bracket>[(])*
-               (?<x>{Int}?{Decimal}{Exponent})   (?# save 'x' as the full number)
+               (?<x>{Int}?{Decimal}{Exponent})  (?# save 'x' as the full number)
                (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
 
         public virtual string Evaluate(string input)
