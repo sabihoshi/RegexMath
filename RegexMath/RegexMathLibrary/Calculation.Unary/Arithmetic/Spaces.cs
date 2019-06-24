@@ -6,7 +6,7 @@ namespace RegexMath.Calculation.Unary.Arithmetic
     public sealed class Spaces : RegexBase
     {
         public Spaces()
-            : base(Pattern, recursive: false) { }
+            : base(Pattern) { }
 
         /* language=REGEXP */
         private static string Pattern { get; } = @"\s+";

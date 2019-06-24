@@ -7,7 +7,7 @@ namespace RegexMath.Calculation.Unary.Arithmetic
     public class Constants : RegexBase
     {
         public Constants()
-            : base(Pattern, recursive:false) { }
+            : base(Pattern) { }
 
         private static string Pattern { get; } =
             $@"(?<constant>[π|ℇ]|epsilon) |

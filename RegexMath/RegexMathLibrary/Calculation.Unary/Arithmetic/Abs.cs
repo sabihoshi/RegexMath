@@ -6,7 +6,7 @@ namespace RegexMath.Calculation.Unary.Arithmetic
     public sealed class Abs : UnaryCalculation
     {
         public Abs()
-            : base(Pattern, recursive: false, brackets: true) { }
+            : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
             $@"[|]{Number}[|] |

@@ -19,7 +19,6 @@ namespace RegexMath
             // Cleanup
             new Spaces(),
             new Abs(),
-            new Constants(),
             new Parenthesis(),
 
             // Binary
@@ -40,6 +39,9 @@ namespace RegexMath
             new UnaryGamma(),
             new UnaryHarmonic(),
             new UnaryMethods(),
+
+            // Special
+            new Constants(),
 
             // Arithmetic
             new Factorial(),

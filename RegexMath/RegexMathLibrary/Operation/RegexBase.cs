@@ -4,16 +4,14 @@ namespace RegexMath.Operation
 {
     public abstract class RegexBase : IOperation
     {
-        protected RegexBase(string pattern, RegexOptions options = RegexOptions.IgnoreCase, bool recursive = true)
+        protected RegexBase(string pattern, RegexOptions options = RegexOptions.IgnoreCase)
         {
-            _recursive = recursive;
             options |= RegexOptions.Compiled
                      | RegexOptions.IgnorePatternWhitespace
                      | RegexOptions.ExplicitCapture;
             Regex = new Regex(pattern, options);
         }
 
-        private readonly bool _recursive;
         private Regex Regex { get; }
 
         protected static string UInt { get; } =
@@ -44,13 +42,13 @@ namespace RegexMath.Operation
         {
             // If recursive is not used, then make sure to replace everything
             // Otherwise only match one at a time
-            return Regex.Replace(input, MatchEvaluator, _recursive ? 1 : -1);
+            return Regex.Replace(input, MatchEvaluator, 1);
         }
 
         public virtual bool TryEvaluate(string input, out string result)
         {
             result = Evaluate(input);
-            return _recursive && Regex.IsMatch(input);
+            return Regex.IsMatch(input);
         }
 
         protected abstract string MatchEvaluator(Match match);

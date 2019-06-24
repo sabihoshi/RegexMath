@@ -8,9 +8,8 @@ namespace RegexMath.Calculation.Operation
     public abstract class BinaryCalculation : RegexBase
     {
         protected BinaryCalculation(string pattern,
-                                    RegexOptions options = RegexOptions.IgnoreCase,
-                                  bool recursive = true, bool brackets = false)
-                           : base(pattern, options, recursive)
+                                    RegexOptions options = RegexOptions.IgnoreCase, bool brackets = false)
+                           : base(pattern, options)
         {
             _brackets = brackets;
         }

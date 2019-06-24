@@ -6,7 +6,7 @@ namespace RegexMath.Calculation.Unary.Arithmetic
     public sealed class Parenthesis : RegexBase
     {
         public Parenthesis()
-            : base(Pattern, recursive: false) { }
+            : base(Pattern) { }
 
         /* language=REGEXP */
 
