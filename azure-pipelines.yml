@@ -5,6 +5,7 @@
 
 trigger:
     - master
+    - azure-pipelines
 
 pool:
     vmImage: "windows-latest"
@@ -15,18 +16,14 @@ variables:
     buildConfiguration: "Release"
 
 steps:
-    - task: NuGetToolInstaller@0
-
-    - task: NuGetCommand@2
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk'
       inputs:
-          restoreSolution: "$(solution)"
-
-    - task: VSBuild@1
-      inputs:
-          solution: "$(solution)"
-          msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-          platform: "$(buildPlatform)"
-          configuration: "$(buildConfiguration)"
+        packageType: sdk
+        version: 3.x
+        installationPath: $(Agent.ToolsDirectory)/dotnet
+    - script: dotnet restore
+    - script: dotnet build
 
     - task: VSTest@2
       inputs:
