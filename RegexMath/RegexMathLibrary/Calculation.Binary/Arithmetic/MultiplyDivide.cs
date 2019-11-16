@@ -29,6 +29,7 @@ namespace RegexMath.Calculation.Binary.Arithmetic
             $@"(?<{Token.Bracket}>[(])*
                (?<{Token.Number}>{Int}?{Decimal}{Exponent})
                (?({Token.Bracket})(?<-{Token.Bracket}>[)])+)";
+
         private static string Pattern { get; } =
             $@"(?>{Number}) ({Operation} {Number})+";
 
@@ -41,8 +42,7 @@ namespace RegexMath.Calculation.Binary.Arithmetic
                 case "%": return Remainder;
                 case "mod":
                 case "modulo":
-                case "modulus":
-                    return Modulo;
+                case "modulus": return Modulo;
 
                 default: return Multiply;
             }
@@ -56,8 +56,9 @@ namespace RegexMath.Calculation.Binary.Arithmetic
 
         private static double Modulo(double x, double y)
         {
-            var result = x % y;
-            if (result < 0 && y > 0 || result > 0 && y < 0) result += y;
+            double result = x % y;
+            if (result < 0 && y > 0 || result > 0 && y < 0)
+                result += y;
             return result;
         }
     }

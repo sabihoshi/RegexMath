@@ -11,8 +11,8 @@ namespace RegexMath
     public static class RegexMath
     {
         /// <summary>
-        /// The order of operations that run recursively.
-        /// Note that the order is important
+        ///     The order of operations that run recursively.
+        ///     Note that the order is important
         /// </summary>
         private static List<IOperation> Operations { get; } = new List<IOperation>
         {
@@ -55,7 +55,7 @@ namespace RegexMath
 
         private static string Calculate(string input)
         {
-            foreach (var operation in Operations)
+            foreach (IOperation operation in Operations)
             {
                 if (operation.TryEvaluate(input, out input))
                 {
@@ -67,14 +67,9 @@ namespace RegexMath
             return input;
         }
 
-        public static double Evaluate(string input)
-        {
-            return double.Parse(Calculate(input));
-        }
+        public static double Evaluate(string input) => double.Parse(Calculate(input));
 
-        public static bool TryEvaluate(string input, out double result)
-        {
-            return double.TryParse(Calculate(input), out result);
-        }
+        public static bool TryEvaluate(string input, out double result) =>
+            double.TryParse(Calculate(input), out result);
     }
 }

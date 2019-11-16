@@ -4,14 +4,6 @@ namespace RegexMath.Calculation.Operation
 {
     public abstract class RegexBase : IOperation
     {
-        protected RegexBase(string pattern, RegexOptions options = RegexOptions.IgnoreCase)
-        {
-            options |= RegexOptions.Compiled
-                     | RegexOptions.IgnorePatternWhitespace
-                     | RegexOptions.ExplicitCapture;
-            Regex = new Regex(pattern, options);
-        }
-
         public enum Token
         {
             Operator,
@@ -21,6 +13,14 @@ namespace RegexMath.Calculation.Operation
             Exponent,
             Decimal,
             Constant
+        }
+
+        protected RegexBase(string pattern, RegexOptions options = RegexOptions.IgnoreCase)
+        {
+            options |= RegexOptions.Compiled
+                     | RegexOptions.IgnorePatternWhitespace
+                     | RegexOptions.ExplicitCapture;
+            Regex = new Regex(pattern, options);
         }
 
         private Regex Regex { get; }
@@ -41,12 +41,7 @@ namespace RegexMath.Calculation.Operation
                (?<{Token.Number}>{Int}?{Decimal}{Exponent})
                (?({Token.Bracket})(?<-{Token.Bracket}>[)])+)";
 
-        public virtual string Evaluate(string input)
-        {
-            // If recursive is not used, then make sure to replace everything
-            // Otherwise only match one at a time
-            return Regex.Replace(input, MatchEvaluator, 1);
-        }
+        public virtual string Evaluate(string input) => Regex.Replace(input, MatchEvaluator, 1);
 
         public virtual bool TryEvaluate(string input, out string result)
         {

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
 using RegexMath.Calculation.Operation;
 
@@ -8,7 +6,6 @@ namespace RegexMath.Calculation.Unary.Arithmetic
 {
     public sealed class Signs : RegexBase
     {
-
         public Signs()
             : base(Pattern) { }
 

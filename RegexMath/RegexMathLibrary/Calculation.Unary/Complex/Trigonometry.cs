@@ -7,7 +7,7 @@ namespace RegexMath.Calculation.Unary.Complex
     public sealed class Trigonometry : UnaryCalculation
     {
         public Trigonometry()
-            : base(Pattern, brackets:true) { }
+            : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
             $@"(Math[.])?

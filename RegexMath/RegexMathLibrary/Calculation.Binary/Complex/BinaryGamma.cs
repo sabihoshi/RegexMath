@@ -18,11 +18,11 @@ namespace RegexMath.Calculation.Binary.Complex
         {
             switch (operation?.ToLower())
             {
-                case "Γ":return SpecialFunctions.GammaUpperIncomplete;
+                case "Γ": return SpecialFunctions.GammaUpperIncomplete;
                 case "Q": return SpecialFunctions.GammaUpperRegularized;
 
-                case "γ": return SpecialFunctions.GammaLowerIncomplete;
-                case "P": return SpecialFunctions.GammaLowerRegularized;
+                case "γ":    return SpecialFunctions.GammaLowerIncomplete;
+                case "P":    return SpecialFunctions.GammaLowerRegularized;
                 case "P^-1": return SpecialFunctions.GammaLowerRegularizedInv;
 
                 default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");

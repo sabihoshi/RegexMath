@@ -18,7 +18,7 @@ namespace RegexMath.Calculation.Unary.Complex
             switch (operation?.ToLower())
             {
                 case "logistic": return SpecialFunctions.Logistic;
-                case "logit": return SpecialFunctions.Logit;
+                case "logit":    return SpecialFunctions.Logit;
 
                 default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
             }

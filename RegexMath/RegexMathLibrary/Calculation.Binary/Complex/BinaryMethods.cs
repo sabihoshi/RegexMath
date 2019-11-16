@@ -25,7 +25,7 @@ namespace RegexMath.Calculation.Binary.Complex
                 case "min":           return Math.Min;
                 case "pow":           return Math.Pow;
                 case "root":          return (x, y) => Math.Pow(x, 1.0 / y);
-                case "round":         return (x, y) => Math.Round(x, (int) y);
+                case "round":         return (x, y) => Math.Round(x, (int)y);
 
                 default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
             }

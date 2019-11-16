@@ -6,7 +6,7 @@ namespace RegexMath.Calculation.Unary.Complex
 {
     public sealed class Factorial : UnaryCalculation
     {
-        public Factorial() 
+        public Factorial()
             : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
@@ -19,7 +19,7 @@ namespace RegexMath.Calculation.Unary.Complex
             switch (operation?.ToLower())
             {
                 case "factorialln": return x => SpecialFunctions.GammaLn(x + 1);
-                default: return x => SpecialFunctions.Gamma(x + 1);
+                default:            return x => SpecialFunctions.Gamma(x + 1);
             }
         }
     }

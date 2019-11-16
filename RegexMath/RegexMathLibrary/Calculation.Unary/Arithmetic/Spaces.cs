@@ -10,9 +10,6 @@ namespace RegexMath.Calculation.Unary.Arithmetic
 
         private static string Pattern { get; } = @"\s+";
 
-        protected override string MatchEvaluator(Match match)
-        {
-            return string.Empty;
-        }
+        protected override string MatchEvaluator(Match match) => string.Empty;
     }
 }

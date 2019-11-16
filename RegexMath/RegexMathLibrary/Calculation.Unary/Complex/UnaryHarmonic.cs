@@ -15,7 +15,7 @@ namespace RegexMath.Calculation.Unary.Complex
 
         protected override Func<double, double> GetOperation(string operation)
         {
-            return x => SpecialFunctions.Harmonic((int) x);
+            return x => SpecialFunctions.Harmonic((int)x);
         }
     }
 }

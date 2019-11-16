@@ -11,7 +11,7 @@ namespace RegexMath.Tests
         [InlineData("Math.E", Math.E)]
         public void Constants_ShouldCalculate(string input, double expected)
         {
-            RoughEqual(expected, out var low, out var high);
+            RoughEqual(expected, out double low, out double high);
             RegexMath.Evaluate(input).ShouldBeInRange(low, high);
         }
 
@@ -19,10 +19,7 @@ namespace RegexMath.Tests
         [InlineData("5+5", 10)]
         [InlineData("5+5+(30)+30+(30)", 100)]
         [InlineData("9+3+(491)+597+28+(727+7)", 1862)]
-        public void Add_ShouldCalculate(string input, double expected)
-        {
-            RegexMath.Evaluate(input).ShouldBe(expected);
-        }
+        public void Add_ShouldCalculate(string input, double expected) { RegexMath.Evaluate(input).ShouldBe(expected); }
 
         [Theory]
         [InlineData("5-5", 0)]
@@ -49,7 +46,7 @@ namespace RegexMath.Tests
         [InlineData("Math.Sqrt(255)", 15.96871942267131199907024517698061384156734970437542667323)]
         public void Sqrt_ShouldCalculate(string input, double expected)
         {
-            RoughEqual(expected, out var low, out var high);
+            RoughEqual(expected, out double low, out double high);
             RegexMath.Evaluate(input).ShouldBeInRange(low, high);
         }
 
@@ -62,7 +59,7 @@ namespace RegexMath.Tests
         }
 
         private void RoughEqual(double expected, out double low, out double high,
-                                double tolerance = 0.00000000000001)
+            double tolerance = 0.00000000000001)
         {
             low = expected - tolerance;
             high = expected + tolerance;

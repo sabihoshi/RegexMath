@@ -22,9 +22,9 @@ namespace RegexMath.Calculation.Unary.Arithmetic
 
         protected override string MatchEvaluator(Match match)
         {
-            var constant = match.Groups[$"{Token.Constant}"].Value.ToUpper();
-            var integer = string.IsNullOrWhiteSpace(match.Groups[$"{Token.Int}"].Value);
-            var exponent = string.IsNullOrWhiteSpace(match.Groups[$"{Token.Exponent}"].Value);
+            string constant = match.Groups[$"{Token.Constant}"].Value.ToUpper();
+            bool integer = string.IsNullOrWhiteSpace(match.Groups[$"{Token.Int}"].Value);
+            bool exponent = string.IsNullOrWhiteSpace(match.Groups[$"{Token.Exponent}"].Value);
             switch (constant)
             {
                 case "π":
@@ -32,7 +32,7 @@ namespace RegexMath.Calculation.Unary.Arithmetic
                 case "ℇ":
                 case "epislon": return $"({double.Epsilon})";
                 case "E": return integer || exponent ? $"({Math.E})" : "e";
-                default: return string.Empty;
+                default:  return string.Empty;
             }
         }
     }

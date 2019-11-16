@@ -12,9 +12,6 @@ namespace RegexMath.Calculation.Unary.Arithmetic
             $@"[|]{Number}[|] |
                (det|abs)[(]{Number}[)]";
 
-        protected override Func<double, double> GetOperation(string operation)
-        {
-            return Math.Abs;
-        }
+        protected override Func<double, double> GetOperation(string operation) => Math.Abs;
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using MathNet.Numerics;
 using RegexMath.Calculation.Operation;
 
@@ -16,7 +14,7 @@ namespace RegexMath.Calculation.Binary.Complex
 
         protected override Func<double, double, double> GetOperation(string operation)
         {
-            return (x, y) => SpecialFunctions.ExponentialIntegral(x, (int) y);
+            return (x, y) => SpecialFunctions.ExponentialIntegral(x, (int)y);
         }
     }
 }

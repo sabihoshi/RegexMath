@@ -8,15 +8,11 @@ namespace RegexMath.Calculation.Unary.Arithmetic
         public Parenthesis()
             : base(Pattern) { }
 
-
         private static string Pattern { get; } =
             $@"((?<=^|[(^*/+-])
                [(]{Number}[)]
                (?=$|[)^*/+-]))+";
 
-        protected override string MatchEvaluator(Match match)
-        {
-            return match.Groups[$"{Token.Number}"].Value;
-        }
+        protected override string MatchEvaluator(Match match) => match.Groups[$"{Token.Number}"].Value;
     }
 }

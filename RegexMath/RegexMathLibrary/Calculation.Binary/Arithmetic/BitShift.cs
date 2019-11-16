@@ -19,8 +19,8 @@ namespace RegexMath.Calculation.Binary.Arithmetic
         {
             switch (operation)
             {
-                case "<<": return (x, y) => (int) x << (int) y;
-                case ">>": return (x, y) => (int) x >> (int) y;
+                case "<<": return (x, y) => (int)x << (int)y;
+                case ">>": return (x, y) => (int)x >> (int)y;
 
                 default: throw new InvalidOperationException($"The operation '{operation}' does not exist.");
             }

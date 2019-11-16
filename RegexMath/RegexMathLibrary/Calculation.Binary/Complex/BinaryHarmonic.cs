@@ -13,9 +13,10 @@ namespace RegexMath.Calculation.Binary.Complex
             $@"H_ (?<{Token.Number}>{Int}), {Number} |
                (Gen(eral(ized)?)?)?Harmonic
                [(](?<{Token.Number}>{Int}), {Number}[)]";
+
         protected override Func<double, double, double> GetOperation(string operation)
         {
-            return (x, y) => SpecialFunctions.GeneralHarmonic((int) x, y);
+            return (x, y) => SpecialFunctions.GeneralHarmonic((int)x, y);
         }
     }
 }

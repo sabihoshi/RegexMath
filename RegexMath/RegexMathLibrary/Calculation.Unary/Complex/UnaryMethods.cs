@@ -19,14 +19,14 @@ namespace RegexMath.Calculation.Unary.Complex
         {
             switch (operation?.ToLower())
             {
-                case "exp": return Math.Exp;
+                case "exp":   return Math.Exp;
                 case "floor": return Math.Floor;
-                case "log": return Math.Log;
+                case "log":   return Math.Log;
                 case "log10": return Math.Log10;
                 case "round": return Math.Round;
-                case "sqrt": return Math.Sqrt;
-                case "cbrt": return x => Math.Pow(x, 1.0 / 3.0);
-                case "sign": return x => Math.Sign((int) x);
+                case "sqrt":  return Math.Sqrt;
+                case "cbrt":  return x => Math.Pow(x, 1.0 / 3.0);
+                case "sign":  return x => Math.Sign((int)x);
 
                 case "ceil":
                 case "ceiling": return Math.Ceiling;

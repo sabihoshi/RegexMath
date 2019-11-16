@@ -20,7 +20,6 @@ namespace RegexMath.Calculation.Binary.Complex
                 case "0": return SpecialFunctions.BesselI0MStruveL0;
                 case "1": return SpecialFunctions.BesselI1MStruveL1;
 
-
                 default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
             }
         }
