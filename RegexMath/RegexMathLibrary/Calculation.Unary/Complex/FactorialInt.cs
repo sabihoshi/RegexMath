@@ -10,16 +10,16 @@ namespace RegexMath.Calculation.Unary.Complex
             : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
-            $@"{Int}! |
+            $@"(?<{Token.Number}>{Int})! |
                (?<{Token.Operator}>Factorial(Ln)?)
-               [(]{Int}[)]";
+               [(](?<{Token.Number}>{Int})[)]";
 
         protected override Func<double, double> GetOperation(string operation)
         {
             switch (operation?.ToLower())
             {
-                case "factorialln": return x => SpecialFunctions.Factorial((int)x);
-                default:            return x => SpecialFunctions.FactorialLn((int)x);
+                case "factorialln": return x => SpecialFunctions.FactorialLn((int)x);
+                default:            return x => SpecialFunctions.Factorial((int)x);
             }
         }
     }
