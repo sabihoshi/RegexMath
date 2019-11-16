@@ -13,7 +13,7 @@ namespace RegexMath.Calculation.Binary.Arithmetic
                                    (?<{Token.Operator}>[+-]))";
 
         private static string Pattern { get; } =
-            $@"(?>{Number}) ({Operation} {UNumber})+";
+            $@"(?>{Number}) ({Operation} {Number})+";
 
         protected override Func<double, double, double> GetOperation(string operation)
         {

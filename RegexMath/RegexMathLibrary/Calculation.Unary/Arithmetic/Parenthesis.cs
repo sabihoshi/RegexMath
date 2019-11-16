@@ -11,7 +11,7 @@ namespace RegexMath.Calculation.Unary.Arithmetic
 
         private static string Pattern { get; } =
             $@"((?<=^|[(^*/+-])
-               [(]{UNumber}[)]
+               [(]{Number}[)]
                (?=$|[)^*/+-]))+";
 
         protected override string MatchEvaluator(Match match)

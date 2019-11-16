@@ -14,7 +14,7 @@ namespace RegexMath.Calculation.Unary.Arithmetic
                ((Math[.])?(
                (?<{Token.Constant}>(?i:PI)) |
 
-               (?<!{UNumber}{Decimal}) 
+               (?<!{Number}{Decimal}) 
                  (?<{Token.Constant}>E)
                (?![+-]?[0-9]+))) | 
 

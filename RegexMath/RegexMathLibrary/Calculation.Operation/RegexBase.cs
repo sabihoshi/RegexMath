@@ -25,9 +25,6 @@ namespace RegexMath.Calculation.Operation
 
         private Regex Regex { get; }
 
-        protected static string UInt { get; } =
-            $@"(?<{Token.Int}>(?({Token.Bracket})[+-]?)[0-9,]+)";
-
         protected static string Int { get; } =
             $@"(?<{Token.Int}>[+-]?[0-9,]+)";
 
@@ -38,11 +35,6 @@ namespace RegexMath.Calculation.Operation
 
         protected static string Exponent { get; } =
             $@"(?<{Token.Exponent}>e[+-]?[0-9]+)?";
-
-        protected static string UNumber { get; } =
-            $@"(?<{Token.Bracket}>[(])*
-               (?<{Token.Number}>{UInt}?{Decimal}{Exponent})
-               (?({Token.Bracket})(?<-{Token.Bracket}>[)])+)";
 
         protected static string Number { get; } =
             $@"(?<{Token.Bracket}>[(])*
