@@ -11,7 +11,7 @@ namespace RegexMath.Calculation.Binary.Complex
 
         private static string Pattern { get; } =
             $@"(Math[.])?
-               (?<operation>Beta(Ln)?|(Ln?)[Bβ])
+               (?<{Token.Operator}>Beta(Ln)?|(Ln?)[Bβ])
                [(]{Number}, {Number}[)]";
 
         protected override Func<double, double, double> GetOperation(string operation)

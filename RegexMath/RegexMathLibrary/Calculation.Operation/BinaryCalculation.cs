@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using RegexMath.Operation;
 
 namespace RegexMath.Calculation.Operation
 {
@@ -20,8 +19,8 @@ namespace RegexMath.Calculation.Operation
 
         protected override string MatchEvaluator(Match match)
         {
-            var operation = GetOperation(match.Groups["operation"].Value);
-            var numbers = match.Groups["x"].Captures.Cast<Capture>()
+            var operation = GetOperation(match.Groups[$"{Token.Operator}"].Value);
+            var numbers = match.Groups[$"{Token.Number}"].Captures.Cast<Capture>()
                                .Where(x => double.TryParse(x.Value, out _))
                                .Select(x => double.Parse(x.Value));
             var result = numbers.Aggregate(operation).ToString();

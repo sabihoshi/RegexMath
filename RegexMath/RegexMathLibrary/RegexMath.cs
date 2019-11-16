@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using RegexMath.Calculation.Binary.Arithmetic;
 using RegexMath.Calculation.Binary.Complex;
@@ -45,7 +45,7 @@ namespace RegexMath
 
             // Arithmetic
             new Factorial(),
-            new Exponent(),
+            new Exponents(),
             new MultiplyDivide(),
             new AddSubtract(),
             new BitShift()

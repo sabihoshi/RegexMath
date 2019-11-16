@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-using RegexMath.Operation;
+using RegexMath.Calculation.Operation;
 
 namespace RegexMath.Calculation.Unary.Arithmetic
 {
@@ -8,7 +8,6 @@ namespace RegexMath.Calculation.Unary.Arithmetic
         public Spaces()
             : base(Pattern) { }
 
-        /* language=REGEXP */
         private static string Pattern { get; } = @"\s+";
 
         protected override string MatchEvaluator(Match match)

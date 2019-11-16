@@ -11,7 +11,7 @@ namespace RegexMath.Calculation.Unary.Complex
             : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
-            $@"(?<operation>E((rror|rr)f?|rf)c?(Inv|^-1)?)
+            $@"(?<{Token.Operator}>E((rror|rr)f?|rf)c?(Inv|^-1)?)
                [(]{Number}[)]";
 
         protected override Func<double, double> GetOperation(string operation)

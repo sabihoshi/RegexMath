@@ -9,31 +9,28 @@ namespace RegexMath.Calculation.Binary.Arithmetic
             : base(Pattern) { }
 
         private static string Operation { get; } =
-            @"(?(operation)
-                (?(multiplication)[*]? | # if operation is multiplication, have it be optional
-                  \k<operation>) |       # back-reference operation
-                (?<operation>            # save operation if there is none
+            $@"(?({Token.Operator})
+                (?(Multiplication)[*]? |
+                  \k<{Token.Operator}>) | 
+                (?<{Token.Operator}>  
                   ([/%]            |
                    rem(ain(der)?)? |
                    mod(ul(o|us))?) |
-                  (?<multiplication>[*]?)))";
+                  (?<Multiplication>[*]?)))";
 
+        private new static string Int { get; } =
+            $@"(?<{Token.Int}>
+                  (?(Multiplication)  
+                    (?({Token.Bracket})[+-]?) |  
+                                       [+-]?)   
+                  [0-9,]+)";
+
+        private new static string Number { get; } =
+            $@"(?<{Token.Bracket}>[(])*
+               (?<{Token.Number}>{Int}?{Decimal}{Exponent})
+               (?({Token.Bracket})(?<-{Token.Bracket}>[)])+)";
         private static string Pattern { get; } =
-            $@"(?>{UNumber})
-
-              ({Operation}
-
-              (?<bracket>[(])*
-              (?<x>
-                (?<int>
-                  (?(multiplication)     # if operation is multiplication
-                    (?(bracket)[+-]?) |  # a bracket is needed to allow signed
-                               [+-]?)    # else allow signed
-                  [0-9,]+)?
-                {Decimal}
-                {Exponent}
-              )
-              (?(bracket)(?<-bracket>[)])+))+";
+            $@"(?>{Number}) ({Operation} {Number})+";
 
         protected override Func<double, double, double> GetOperation(string operation)
         {

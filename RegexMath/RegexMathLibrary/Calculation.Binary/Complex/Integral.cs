@@ -12,7 +12,7 @@ namespace RegexMath.Calculation.Binary.Complex
             : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
-            $@"E_{Number}[(](?<x>{Int})[)]";
+            $@"E_{Number}[(](?<{Token.Number}>{Int})[)]";
 
         protected override Func<double, double, double> GetOperation(string operation)
         {

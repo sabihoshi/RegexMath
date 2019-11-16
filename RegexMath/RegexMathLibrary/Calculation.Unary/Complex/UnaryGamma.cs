@@ -11,7 +11,7 @@ namespace RegexMath.Calculation.Unary.Complex
 
         private static string Pattern { get; } =
             $@"(Math[.])?
-               (?<operation>Gamma(Ln)?|(Ln)?Γ|ψ(^-1)?|DiGamma(Inv)?)
+               (?<{Token.Operator}>Gamma(Ln)?|(Ln)?Γ|ψ(^-1)?|DiGamma(Inv)?)
                [(]{Number}[)]";
 
         protected override Func<double, double> GetOperation(string operation)

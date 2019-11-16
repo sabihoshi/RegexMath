@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using RegexMath.Operation;
+using RegexMath.Calculation.Operation;
 
 namespace RegexMath.Calculation.Unary.Arithmetic
 {
@@ -10,21 +10,21 @@ namespace RegexMath.Calculation.Unary.Arithmetic
             : base(Pattern) { }
 
         private static string Pattern { get; } =
-            $@"(?<constant>[π|ℇ]|epsilon) |
+            $@"(?<{Token.Constant}>[π|ℇ]|epsilon) |
                ((Math[.])?(
-               (?<constant>(?i:PI)) |
+               (?<{Token.Constant}>(?i:PI)) |
 
-               (?<!{UNumber}{Decimal}) # don't include number or decimal
-                 (?<constant>E)
-               (?![+-]?[0-9]+))) |     # don't include if scientific notation
+               (?<!{UNumber}{Decimal}) 
+                 (?<{Token.Constant}>E)
+               (?![+-]?[0-9]+))) | 
 
-               (?<=Log_)(?<constant>E)";
+               (?<=Log_)(?<{Token.Constant}>E)";
 
         protected override string MatchEvaluator(Match match)
         {
-            var constant = match.Groups["constant"].Value.ToUpper();
-            var integer = string.IsNullOrWhiteSpace(match.Groups["int"].Value);
-            var exponent = string.IsNullOrWhiteSpace(match.Groups["exponent"].Value);
+            var constant = match.Groups[$"{Token.Constant}"].Value.ToUpper();
+            var integer = string.IsNullOrWhiteSpace(match.Groups[$"{Token.Int}"].Value);
+            var exponent = string.IsNullOrWhiteSpace(match.Groups[$"{Token.Exponent}"].Value);
             switch (constant)
             {
                 case "π":

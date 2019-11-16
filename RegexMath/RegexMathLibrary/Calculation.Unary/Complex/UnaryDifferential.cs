@@ -10,7 +10,7 @@ namespace RegexMath.Calculation.Unary.Complex
             : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
-            $@"(?<operation>((e^x)?K|I)_[0-1])
+            $@"(?<{Token.Operator}>((e^x)?K|I)_[0-1])
                [(]{Number}[)]";
 
         protected override Func<double, double> GetOperation(string operation)

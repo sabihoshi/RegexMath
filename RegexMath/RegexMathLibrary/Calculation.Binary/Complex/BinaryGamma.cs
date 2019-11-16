@@ -11,7 +11,7 @@ namespace RegexMath.Calculation.Binary.Complex
 
         private static string Pattern { get; } =
             $@"(Math[.])?
-               (?<operation>[γΓQ]|P(^-1)?)
+               (?<{Token.Operator}>[γΓQ]|P(^-1)?)
                [(]{Number}, {Number}[)]";
 
         protected override Func<double, double, double> GetOperation(string operation)

@@ -2,7 +2,7 @@
 using MathNet.Numerics;
 using RegexMath.Calculation.Operation;
 
-namespace RegexMath.Calculation.Unary.Complex
+namespace RegexMath.Calculation.Binary.Complex
 {
     public sealed class BinaryDifferential : UnaryCalculation
     {
@@ -10,8 +10,8 @@ namespace RegexMath.Calculation.Unary.Complex
             : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
-            $@"I_(?<operation>[0-1])[(]{Number}[)] -
-               L_\k<operation>      [(]{Number}[)]";
+            $@"I_(?<{Token.Operator}>[0-1])[(]{Number}[)] -
+               L_\k<{Token.Operator}>      [(]{Number}[)]";
 
         protected override Func<double, double> GetOperation(string operation)
         {

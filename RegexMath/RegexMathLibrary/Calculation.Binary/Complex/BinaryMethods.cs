@@ -10,7 +10,7 @@ namespace RegexMath.Calculation.Binary.Complex
 
         private static string Pattern { get; } =
             $@"(Math[.])?
-               (?<operation>Atan2 | IEEERemainder
+               (?<{Token.Operator}>Atan2 | IEEERemainder
                           | Max | Min | Pow
                           | Root | Round)
                [(]{Number}, {Number}[)]";

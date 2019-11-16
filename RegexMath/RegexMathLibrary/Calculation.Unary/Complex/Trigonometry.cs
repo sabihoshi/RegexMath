@@ -11,7 +11,7 @@ namespace RegexMath.Calculation.Unary.Complex
 
         private static string Pattern { get; } =
             $@"(Math[.])?
-               (?<operation>a?(sinc?|cos|tan|cot|sec|csc)h?)
+               (?<{Token.Operator}>a?(sinc?|cos|tan|cot|sec|csc)h?)
                [(]{Number}[)]";
 
         protected override Func<double, double> GetOperation(string operation)

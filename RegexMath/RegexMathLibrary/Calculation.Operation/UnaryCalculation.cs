@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using RegexMath.Operation;
 
 namespace RegexMath.Calculation.Operation
 {
@@ -19,12 +18,12 @@ namespace RegexMath.Calculation.Operation
 
         protected override string MatchEvaluator(Match match)
         {
-            var operation = GetOperation(match.Groups["operation"].Value);
-            var x = match.Groups["x"].Value;
+            var operation = GetOperation(match.Groups[$"{Token.Operator}"].Value);
+            var number = match.Groups[$"{Token.Number}"].Value;
 
-            if (double.TryParse(x, out var number))
-                return operation(number).ToString();
-            return _brackets ? $"({x})" : x;
+            if (double.TryParse(number, out var result))
+                return operation(result).ToString();
+            return _brackets ? $"({number})" : number;
         }
     }
 }

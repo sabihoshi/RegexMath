@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-using RegexMath.Operation;
+using RegexMath.Calculation.Operation;
 
 namespace RegexMath.Calculation.Unary.Arithmetic
 {
@@ -8,16 +8,15 @@ namespace RegexMath.Calculation.Unary.Arithmetic
         public Parenthesis()
             : base(Pattern) { }
 
-        /* language=REGEXP */
 
         private static string Pattern { get; } =
-            $@"((?<=^|[(^*/+-]) # make sure to start at a lower order
-               [(]{Number}[)]
-               (?=$|[)^*/+-]))+ # make sure to end at a lower order";
+            $@"((?<=^|[(^*/+-])
+               [(]{UNumber}[)]
+               (?=$|[)^*/+-]))+";
 
         protected override string MatchEvaluator(Match match)
         {
-            return match.Groups["x"].Value;
+            return match.Groups[$"{Token.Number}"].Value;
         }
     }
 }

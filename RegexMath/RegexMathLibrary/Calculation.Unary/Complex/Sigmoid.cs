@@ -10,7 +10,7 @@ namespace RegexMath.Calculation.Unary.Complex
             : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
-            $@"(?<operation>Logi(t|stic))
+            $@"(?<{Token.Operator}>Logi(t|stic))
                [(]{Int}[)]";
 
         protected override Func<double, double> GetOperation(string operation)

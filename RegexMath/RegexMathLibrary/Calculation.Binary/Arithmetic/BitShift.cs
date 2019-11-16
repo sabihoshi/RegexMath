@@ -9,11 +9,12 @@ namespace RegexMath.Calculation.Binary.Arithmetic
             : base(Pattern) { }
 
         private static string Operation { get; } =
-            @"(?<operation>
-                (?(rhs)\k<operation>|[<>]{2})) (?# back-reference operation or capture it)";
+            $@"(?(rhs)\k<{Token.Operator}>|
+                      (?<{Token.Operator}>[<>]{{2}}))";
+
 
         private static string Pattern { get; } =
-            $@"(?>{Number}) ({Operation} (?<rhs>{Number}))+";
+            $@"(?>{UNumber}) (?<rhs>{Operation} {Number})+";
 
         protected override Func<double, double, double> GetOperation(string operation)
         {

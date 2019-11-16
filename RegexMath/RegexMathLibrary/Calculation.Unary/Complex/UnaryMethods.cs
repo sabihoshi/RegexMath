@@ -10,7 +10,7 @@ namespace RegexMath.Calculation.Unary.Complex
 
         private static string Pattern { get; } =
             $@"(Math[.])?
-               (?<operation>Ceil(ing)?  | Exp 
+               (?<{Token.Operator}>Ceil(ing)?  | Exp 
                           | Floor | Log | Log10 | Round 
                           | Sign | Sqrt | Trunc(ate)?)
                [(]{Number}[)]";

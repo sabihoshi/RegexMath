@@ -10,8 +10,8 @@ namespace RegexMath.Calculation.Unary.Complex
             : base(Pattern, brackets: true) { }
 
         private static string Pattern { get; } =
-            $@"H_(?<x>{Int}) |
-               Harmonic[(](?<x>{Int})[)]";
+            $@"H_         (?<{Token.Number}>{Int}) |
+               Harmonic[(](?<{Token.Number}>{Int})[)]";
 
         protected override Func<double, double> GetOperation(string operation)
         {

@@ -11,7 +11,7 @@ namespace RegexMath.Calculation.Unary.Complex
 
         private static string Pattern { get; } =
             $@"{Number}! |
-               (?<operation>Factorial(Ln)?)
+               (?<{Token.Operator}>Factorial(Ln)?)
                [(]{Number}[)]";
 
         protected override Func<double, double> GetOperation(string operation)

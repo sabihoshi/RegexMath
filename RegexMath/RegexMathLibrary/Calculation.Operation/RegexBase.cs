@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace RegexMath.Operation
+namespace RegexMath.Calculation.Operation
 {
     public abstract class RegexBase : IOperation
     {
@@ -12,31 +12,42 @@ namespace RegexMath.Operation
             Regex = new Regex(pattern, options);
         }
 
+        public enum Token
+        {
+            Operator,
+            Bracket,
+            Number,
+            Int,
+            Exponent,
+            Decimal,
+            Constant
+        }
+
         private Regex Regex { get; }
 
         protected static string UInt { get; } =
-            @"(?<int>(?(bracket)[+-]?)[0-9,]+)  (?# match integer or commas)";
+            $@"(?<{Token.Int}>(?({Token.Bracket})[+-]?)[0-9,]+)";
 
         protected static string Int { get; } =
-            @"(?<int>[+-]?[0-9,]+)              (?# allow sign for right side)";
+            $@"(?<{Token.Int}>[+-]?[0-9,]+)";
 
         protected static string Decimal { get; } =
-            @"(?<decimal>(?(int)
-                  (?<-int>([.][0-9]*)?) |       (?# make decimal optional if there is an 'int')
-                           [.][0-9]+) )         (?# else make decimal required)";
+            $@"(?<{Token.Decimal}>(?({Token.Int})
+                  (?<-{Token.Int}>([.][0-9]*)?) |
+                                   [.][0-9]+) )";
 
         protected static string Exponent { get; } =
-            @"(?<exponent>e[+-]?[0-9]+)?";
+            $@"(?<{Token.Exponent}>e[+-]?[0-9]+)?";
 
         protected static string UNumber { get; } =
-            $@"(?<bracket>[(])*
-               (?<x>{UInt}?{Decimal}{Exponent}) (?# save 'x' as the full number)
-               (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
+            $@"(?<{Token.Bracket}>[(])*
+               (?<{Token.Number}>{UInt}?{Decimal}{Exponent})
+               (?({Token.Bracket})(?<-{Token.Bracket}>[)])+)";
 
         protected static string Number { get; } =
-            $@"(?<bracket>[(])*
-               (?<x>{Int}?{Decimal}{Exponent})  (?# save 'x' as the full number)
-               (?(bracket)(?<-bracket>[)])+)    (?# balance brackets)";
+            $@"(?<{Token.Bracket}>[(])*
+               (?<{Token.Number}>{Int}?{Decimal}{Exponent})
+               (?({Token.Bracket})(?<-{Token.Bracket}>[)])+)";
 
         public virtual string Evaluate(string input)
         {
