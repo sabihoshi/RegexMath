@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using RegexMath.Calculation.Binary.Arithmetic;
 using RegexMath.Calculation.Binary.Complex;
+using RegexMath.Calculation.Operation;
 using RegexMath.Calculation.Unary.Arithmetic;
 using RegexMath.Calculation.Unary.Complex;
-using RegexMath.Operation;
 
 namespace RegexMath
 {
@@ -20,6 +20,7 @@ namespace RegexMath
             new Spaces(),
             new Abs(),
             new Parenthesis(),
+            new Signs(),
 
             // Binary
             new Euler(),
@@ -44,6 +45,7 @@ namespace RegexMath
             new Constants(),
 
             // Arithmetic
+            new FactorialInt(),
             new Factorial(),
             new Exponents(),
             new MultiplyDivide(),
