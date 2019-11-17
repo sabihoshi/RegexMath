@@ -8,7 +8,7 @@ trigger:
     - azure-pipelines
 
 pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: "windows-latest"
 
 variables:
     solution: "**/*.sln"
@@ -22,14 +22,15 @@ steps:
         packageType: sdk
         version: 3.x
         installationPath: $(Agent.ToolsDirectory)/dotnet
-    - script: dotnet restore
-    - script: dotnet build
 
     - task: NuGetToolInstaller@0
 
-    - task: NuGetCommand@2
+    - task: DotNetCoreCLI@2
       inputs:
-        restoreSolution: '$(solution)'
+        command: restore
+        projects: '**/*.csproj'
+        feedsToUse: config
+        nugetConfigPath: NuGet.config  
 
     - task: VSBuild@1
       inputs:
