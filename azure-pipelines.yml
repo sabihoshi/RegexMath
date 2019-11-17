@@ -29,15 +29,11 @@ steps:
       inputs:
         command: restore
         projects: '**/*.csproj'
-        feedsToUse: config
-        nugetConfigPath: NuGet.config  
 
-    - task: VSBuild@1
+    - task: DotNetCoreCLI@2
       inputs:
-        solution: '$(solution)'
-        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
+        command: build
+        projects: '**/*.csproj'
 
     - task: VSTest@2
       inputs:
