@@ -22,8 +22,6 @@ steps:
         packageType: sdk
         version: 3.x
         installationPath: $(Agent.ToolsDirectory)/dotnet
-    - script: dotnet restore
-    - script: dotnet build
 
     - task: NuGetToolInstaller@0
 
