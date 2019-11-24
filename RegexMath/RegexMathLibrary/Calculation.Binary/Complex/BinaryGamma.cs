@@ -16,17 +16,17 @@ namespace RegexMath.Calculation.Binary.Complex
 
         protected override Func<double, double, double> GetOperation(string operation)
         {
-            switch (operation?.ToLower())
+            return operation?.ToLower() switch
             {
-                case "Γ": return SpecialFunctions.GammaUpperIncomplete;
-                case "Q": return SpecialFunctions.GammaUpperRegularized;
+                "Γ" => SpecialFunctions.GammaUpperIncomplete,
+                "Q" => SpecialFunctions.GammaUpperRegularized,
 
-                case "γ":    return SpecialFunctions.GammaLowerIncomplete;
-                case "P":    return SpecialFunctions.GammaLowerRegularized;
-                case "P^-1": return SpecialFunctions.GammaLowerRegularizedInv;
+                "γ"    => SpecialFunctions.GammaLowerIncomplete,
+                "P"    => SpecialFunctions.GammaLowerRegularized,
+                "P^-1" => SpecialFunctions.GammaLowerRegularizedInv,
 
-                default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
-            }
+                _ => throw new InvalidOperationException($"Operation '{operation}' does not exist.")
+            };
         }
     }
 }

@@ -15,19 +15,19 @@ namespace RegexMath.Calculation.Unary.Complex
 
         protected override Func<double, double> GetOperation(string operation)
         {
-            switch (operation?.ToLower())
+            return operation?.ToLower() switch
             {
-                case "i_0": return SpecialFunctions.BesselI0;
-                case "i_1": return SpecialFunctions.BesselI1;
+                "i_0" => SpecialFunctions.BesselI0,
+                "i_1" => SpecialFunctions.BesselI1,
 
-                case "k_0": return SpecialFunctions.BesselK0;
-                case "k_1": return SpecialFunctions.BesselK1;
+                "k_0" => SpecialFunctions.BesselK0,
+                "k_1" => SpecialFunctions.BesselK1,
 
-                case "e^xk_0": return SpecialFunctions.BesselK0e;
-                case "e^xk_1": return SpecialFunctions.BesselK1e;
+                "e^xk_0" => SpecialFunctions.BesselK0e,
+                "e^xk_1" => SpecialFunctions.BesselK1e,
 
-                default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
-            }
+                _ => throw new InvalidOperationException($"Operation '{operation}' does not exist.")
+            };
         }
     }
 }

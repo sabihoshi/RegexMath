@@ -16,11 +16,11 @@ namespace RegexMath.Calculation.Unary.Complex
 
         protected override Func<double, double> GetOperation(string operation)
         {
-            switch (operation?.ToLower())
+            return operation?.ToLower() switch
             {
-                case "factorialln": return x => SpecialFunctions.FactorialLn((int)x);
-                default:            return x => SpecialFunctions.Factorial((int)x);
-            }
+                "factorialln" => x => SpecialFunctions.FactorialLn((int)x),
+                _             => x => SpecialFunctions.Factorial((int)x)
+            };
         }
     }
 }

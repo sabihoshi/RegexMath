@@ -17,18 +17,18 @@ namespace RegexMath.Calculation.Binary.Complex
 
         protected override Func<double, double, double> GetOperation(string operation)
         {
-            switch (operation?.ToLower())
+            return operation?.ToLower() switch
             {
-                case "atan2":         return Math.Atan2;
-                case "ieeeremainder": return Math.IEEERemainder;
-                case "max":           return Math.Max;
-                case "min":           return Math.Min;
-                case "pow":           return Math.Pow;
-                case "root":          return (x, y) => Math.Pow(x, 1.0 / y);
-                case "round":         return (x, y) => Math.Round(x, (int)y);
+                "atan2"         => Math.Atan2,
+                "ieeeremainder" => Math.IEEERemainder,
+                "max"           => Math.Max,
+                "min"           => Math.Min,
+                "pow"           => Math.Pow,
+                "root"          => (x, y) => Math.Pow(x, 1.0 / y),
+                "round"         => (x, y) => Math.Round(x, (int)y),
 
-                default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
-            }
+                _ => throw new InvalidOperationException($"Operation '{operation}' does not exist.")
+            };
         }
     }
 }

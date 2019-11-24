@@ -16,22 +16,18 @@ namespace RegexMath.Calculation.Unary.Complex
 
         protected override Func<double, double> GetOperation(string operation)
         {
-            switch (operation?.ToLower())
+            return operation?.ToLower() switch
             {
-                case "Γ":
-                case "gamma": return SpecialFunctions.Gamma;
-
-                case "lnΓ":
-                case "gammaln": return SpecialFunctions.GammaLn;
-
-                case "ψ":
-                case "digamma": return SpecialFunctions.DiGamma;
-
-                case "ψ^-1":
-                case "digammainv": return SpecialFunctions.DiGammaInv;
-
-                default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
-            }
+                "Γ"          => SpecialFunctions.Gamma,
+                "gamma"      => SpecialFunctions.Gamma,
+                "lnΓ"        => SpecialFunctions.GammaLn,
+                "gammaln"    => SpecialFunctions.GammaLn,
+                "ψ"          => SpecialFunctions.DiGamma,
+                "digamma"    => SpecialFunctions.DiGamma,
+                "ψ^-1"       => SpecialFunctions.DiGammaInv,
+                "digammainv" => SpecialFunctions.DiGammaInv,
+                _            => throw new InvalidOperationException($"Operation '{operation}' does not exist.")
+            };
         }
     }
 }

@@ -16,21 +16,15 @@ namespace RegexMath.Calculation.Unary.Complex
 
         protected override Func<double, double> GetOperation(string operation)
         {
-            operation = operation?.ToLower();
-
-            if (Regex.IsMatch(operation, @"^e((rror|rr)f?|rf)c(Inv|^-1)$"))
-                return SpecialFunctions.ErfcInv;
-
-            if (Regex.IsMatch(operation, @"^e((rror|rr)f?|rf)(Inv|^-1)$"))
-                return SpecialFunctions.ErfInv;
-
-            if (Regex.IsMatch(operation, @"^e((rror|rr)f?|rf)c$"))
-                return SpecialFunctions.Erfc;
-
-            if (Regex.IsMatch(operation, @"^e((rror|rr)f?|rf)$"))
-                return SpecialFunctions.Erf;
-
-            throw new InvalidOperationException($"Operation '{operation}' does not exist.");
+            return operation?.ToLower() switch
+            {
+                var o when Regex.IsMatch(o, @"^e((rror|rr)f?|rf)c(Inv|^-1)$") => SpecialFunctions.ErfcInv,
+                var o when Regex.IsMatch(o, @"^e((rror|rr)f?|rf)(Inv|^-1)$")  => SpecialFunctions.ErfInv,
+                var o when Regex.IsMatch(o, @"^e((rror|rr)f?|rf)c$")          => SpecialFunctions.Erfc,
+                var o when Regex.IsMatch(o, @"^e((rror|rr)f?|rf)$")           => SpecialFunctions.Erf,
+                _ => throw new InvalidOperationException(
+                    $"Operation '{operation}' does not exist.")
+            };
         }
     }
 }

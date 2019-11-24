@@ -17,13 +17,13 @@ namespace RegexMath.Calculation.Binary.Arithmetic
 
         protected override Func<double, double, double> GetOperation(string operation)
         {
-            switch (operation)
+            return operation switch
             {
-                case "-": return Subtract;
-                case "+": return Add;
+                "-" => Subtract,
+                "+" => Add,
 
-                default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
-            }
+                _ => throw new InvalidOperationException($"Operation '{operation}' does not exist.")
+            };
         }
 
         private static double Subtract(double x, double y) => x - y;

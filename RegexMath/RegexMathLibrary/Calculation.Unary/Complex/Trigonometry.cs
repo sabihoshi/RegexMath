@@ -16,42 +16,42 @@ namespace RegexMath.Calculation.Unary.Complex
 
         protected override Func<double, double> GetOperation(string operation)
         {
-            switch (operation?.ToLower())
+            return operation?.ToLower() switch
             {
                 // Standard Trigonometry
-                case "sin": return Trig.Sin;
-                case "cos": return Trig.Cos;
-                case "tan": return Trig.Tan;
-                case "cot": return Trig.Cot;
-                case "sec": return Trig.Sec;
-                case "csc": return Trig.Csc;
+                "sin" => Trig.Sin,
+                "cos" => Trig.Cos,
+                "tan" => Trig.Tan,
+                "cot" => Trig.Cot,
+                "sec" => Trig.Sec,
+                "csc" => Trig.Csc,
 
-                case "sinc": return Trig.Sinc;
+                "sinc" => Trig.Sinc,
 
-                case "asin": return Trig.Asin;
-                case "acos": return Trig.Acos;
-                case "atan": return Trig.Atan;
-                case "acot": return Trig.Acot;
-                case "asec": return Trig.Asec;
-                case "acsc": return Trig.Acsc;
+                "asin" => Trig.Asin,
+                "acos" => Trig.Acos,
+                "atan" => Trig.Atan,
+                "acot" => Trig.Acot,
+                "asec" => Trig.Asec,
+                "acsc" => Trig.Acsc,
 
                 // Hyperbolic Trigonometry
-                case "sinh": return Trig.Sinh;
-                case "cosh": return Trig.Cosh;
-                case "tanh": return Trig.Tanh;
-                case "coth": return Trig.Coth;
-                case "sech": return Trig.Sech;
-                case "csch": return Trig.Csch;
+                "sinh" => Trig.Sinh,
+                "cosh" => Trig.Cosh,
+                "tanh" => Trig.Tanh,
+                "coth" => Trig.Coth,
+                "sech" => Trig.Sech,
+                "csch" => Trig.Csch,
 
-                case "asinh": return Trig.Asinh;
-                case "acosh": return Trig.Acosh;
-                case "atanh": return Trig.Atanh;
-                case "acoth": return Trig.Acoth;
-                case "asech": return Trig.Asech;
-                case "acsch": return Trig.Acsch;
+                "asinh" => Trig.Asinh,
+                "acosh" => Trig.Acosh,
+                "atanh" => Trig.Atanh,
+                "acoth" => Trig.Acoth,
+                "asech" => Trig.Asech,
+                "acsch" => Trig.Acsch,
 
-                default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
-            }
+                _ => throw new InvalidOperationException($"Operation '{operation}' does not exist.")
+            };
         }
     }
 }

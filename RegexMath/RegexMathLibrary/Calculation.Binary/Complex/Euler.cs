@@ -16,18 +16,16 @@ namespace RegexMath.Calculation.Binary.Complex
 
         protected override Func<double, double, double> GetOperation(string operation)
         {
-            switch (operation?.ToLower())
+            return operation?.ToLower() switch
             {
-                case "β":
-                case "b":
-                case "beta": return SpecialFunctions.Beta;
-
-                case "lnβ":
-                case "lnb":
-                case "betaln": return SpecialFunctions.BetaLn;
-
-                default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
-            }
+                "β"      => SpecialFunctions.Beta,
+                "b"      => SpecialFunctions.Beta,
+                "beta"   => SpecialFunctions.Beta,
+                "lnβ"    => SpecialFunctions.BetaLn,
+                "lnb"    => SpecialFunctions.BetaLn,
+                "betaln" => SpecialFunctions.BetaLn,
+                _        => throw new InvalidOperationException($"Operation '{operation}' does not exist.")
+            };
         }
     }
 }

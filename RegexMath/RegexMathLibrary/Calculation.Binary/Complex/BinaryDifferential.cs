@@ -15,13 +15,13 @@ namespace RegexMath.Calculation.Binary.Complex
 
         protected override Func<double, double> GetOperation(string operation)
         {
-            switch (operation?.ToLower())
+            return operation?.ToLower() switch
             {
-                case "0": return SpecialFunctions.BesselI0MStruveL0;
-                case "1": return SpecialFunctions.BesselI1MStruveL1;
+                "0" => SpecialFunctions.BesselI0MStruveL0,
+                "1" => SpecialFunctions.BesselI1MStruveL1,
 
-                default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
-            }
+                _ => throw new InvalidOperationException($"Operation '{operation}' does not exist.")
+            };
         }
     }
 }

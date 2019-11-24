@@ -15,13 +15,13 @@ namespace RegexMath.Calculation.Unary.Complex
 
         protected override Func<double, double> GetOperation(string operation)
         {
-            switch (operation?.ToLower())
+            return operation?.ToLower() switch
             {
-                case "logistic": return SpecialFunctions.Logistic;
-                case "logit":    return SpecialFunctions.Logit;
+                "logistic" => SpecialFunctions.Logistic,
+                "logit"    => SpecialFunctions.Logit,
 
-                default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
-            }
+                _ => throw new InvalidOperationException($"Operation '{operation}' does not exist.")
+            };
         }
     }
 }

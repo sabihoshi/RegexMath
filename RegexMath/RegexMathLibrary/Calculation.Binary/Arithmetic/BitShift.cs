@@ -17,13 +17,13 @@ namespace RegexMath.Calculation.Binary.Arithmetic
 
         protected override Func<double, double, double> GetOperation(string operation)
         {
-            switch (operation)
+            return operation switch
             {
-                case "<<": return (x, y) => (int)x << (int)y;
-                case ">>": return (x, y) => (int)x >> (int)y;
+                "<<" => (x, y) => (int)x << (int)y,
+                ">>" => (x, y) => (int)x >> (int)y,
 
-                default: throw new InvalidOperationException($"The operation '{operation}' does not exist.");
-            }
+                _ => throw new InvalidOperationException($"The operation '{operation}' does not exist.")
+            };
         }
     }
 }

@@ -17,25 +17,22 @@ namespace RegexMath.Calculation.Unary.Complex
 
         protected override Func<double, double> GetOperation(string operation)
         {
-            switch (operation?.ToLower())
+            return operation?.ToLower() switch
             {
-                case "exp":   return Math.Exp;
-                case "floor": return Math.Floor;
-                case "log":   return Math.Log;
-                case "log10": return Math.Log10;
-                case "round": return Math.Round;
-                case "sqrt":  return Math.Sqrt;
-                case "cbrt":  return x => Math.Pow(x, 1.0 / 3.0);
-                case "sign":  return x => Math.Sign((int)x);
-
-                case "ceil":
-                case "ceiling": return Math.Ceiling;
-
-                case "trunc":
-                case "truncate": return Math.Truncate;
-
-                default: throw new InvalidOperationException($"Operation '{operation}' does not exist.");
-            }
+                "exp"      => Math.Exp,
+                "floor"    => Math.Floor,
+                "log"      => Math.Log,
+                "log10"    => Math.Log10,
+                "round"    => Math.Round,
+                "sqrt"     => Math.Sqrt,
+                "cbrt"     => x => Math.Pow(x, 1.0 / 3.0),
+                "sign"     => x => Math.Sign((int)x),
+                "ceil"     => Math.Ceiling,
+                "ceiling"  => Math.Ceiling,
+                "trunc"    => Math.Truncate,
+                "truncate" => Math.Truncate,
+                _          => throw new InvalidOperationException($"Operation '{operation}' does not exist.")
+            };
         }
     }
 }

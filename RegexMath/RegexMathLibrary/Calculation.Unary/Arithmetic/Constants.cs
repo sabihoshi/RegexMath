@@ -25,15 +25,15 @@ namespace RegexMath.Calculation.Unary.Arithmetic
             string constant = match.Groups[$"{Token.Constant}"].Value.ToUpper();
             bool integer = string.IsNullOrWhiteSpace(match.Groups[$"{Token.Int}"].Value);
             bool exponent = string.IsNullOrWhiteSpace(match.Groups[$"{Token.Exponent}"].Value);
-            switch (constant)
+            return constant switch
             {
-                case "π":
-                case "PI": return $"({Math.PI})";
-                case "ℇ":
-                case "epislon": return $"({double.Epsilon})";
-                case "E": return integer || exponent ? $"({Math.E})" : "e";
-                default:  return string.Empty;
-            }
+                "π"       => $"({Math.PI})",
+                "PI"      => $"({Math.PI})",
+                "ℇ"       => $"({double.Epsilon})",
+                "epislon" => $"({double.Epsilon})",
+                "E"       => (integer || exponent ? $"({Math.E})" : "e"),
+                _         => string.Empty
+            };
         }
     }
 }

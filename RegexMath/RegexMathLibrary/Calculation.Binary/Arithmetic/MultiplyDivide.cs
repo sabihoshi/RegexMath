@@ -35,17 +35,16 @@ namespace RegexMath.Calculation.Binary.Arithmetic
 
         protected override Func<double, double, double> GetOperation(string operation)
         {
-            switch (operation)
+            return operation switch
             {
-                case "/": return Divide;
-                case "rem":
-                case "%": return Remainder;
-                case "mod":
-                case "modulo":
-                case "modulus": return Modulo;
-
-                default: return Multiply;
-            }
+                "/"       => Divide,
+                "rem"     => Remainder,
+                "%"       => Remainder,
+                "mod"     => Modulo,
+                "modulo"  => Modulo,
+                "modulus" => Modulo,
+                _         => Multiply
+            };
         }
 
         private static double Multiply(double x, double y) => x * y;
