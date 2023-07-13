@@ -1,15 +1,14 @@
 ﻿using System.Text.RegularExpressions;
 using RegexMath.Calculation.Operation;
 
-namespace RegexMath.Calculation.Unary.Arithmetic
+namespace RegexMath.Calculation.Unary.Arithmetic;
+
+public sealed class Spaces : RegexBase
 {
-    public sealed class Spaces : RegexBase
-    {
-        public Spaces()
-            : base(Pattern) { }
+    public Spaces()
+        : base(Pattern) { }
 
-        private static string Pattern { get; } = @"\s+";
+    private static string Pattern { get; } = @"\s+";
 
-        protected override string MatchEvaluator(Match match) => string.Empty;
-    }
+    protected override string MatchEvaluator(Match match) => string.Empty;
 }

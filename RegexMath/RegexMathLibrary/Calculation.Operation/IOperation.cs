@@ -1,9 +1,8 @@
-﻿namespace RegexMath.Calculation.Operation
-{
-    public interface IOperation
-    {
-        string Evaluate(string input);
+﻿namespace RegexMath.Calculation.Operation;
 
-        bool TryEvaluate(string input, out string result);
-    }
+public interface IOperation
+{
+    bool TryEvaluate(string input, out string result);
+
+    string Evaluate(string input);
 }
